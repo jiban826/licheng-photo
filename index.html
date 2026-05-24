@@ -41,7 +41,7 @@ body{background:#f5f5f5;font-size:16px;color:#333;padding-bottom:70px;max-width:
 .btn:active{opacity:.8;}
 .btn-b{background:#3498db;color:#fff;}
 .btn-g{background:#27ae60;color:#fff;}
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:8px 18px;border-radius:16px;font-size:12px;z-index:999;display:none;max-width:80%;text-align:center;}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:8px 18px;border-radius:16px;font-size:12px;z-index:999;display:none;max-width:80%;text-align:center;}
 .bnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;padding:4px 0;max-width:480px;margin:0 auto;}
 .bnav .n{flex:1;text-align:center;padding:2px 0;cursor:pointer;}
 .bnav .n .ni{font-size:18px;}
@@ -86,6 +86,39 @@ body{background:#f5f5f5;font-size:16px;color:#333;padding-bottom:70px;max-width:
   <div class="n" data-t="profile"><div class="ni">👤</div><div class="nl" id="n4">我的</div></div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="editModal" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:none;align-items:flex-end;justify-content:center;">
+  <div style="background:#fff;border-radius:16px 16px 0 0;width:100%;max-width:440px;padding:16px 18px;animation:up .3s;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div style="font-size:16px;font-weight:700;" id="editTitle">✏️ 编辑资料</div>
+      <span style="font-size:20px;cursor:pointer;color:#999;" onclick="closeEdit()">✕</span>
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:12px;color:#555;font-weight:600;">昵称</label>
+      <input id="eName" style="width:100%;padding:10px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-top:2px;">
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:12px;color:#555;font-weight:600;">身份</label>
+      <select id="eRole" style="width:100%;padding:10px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-top:2px;">
+        <option value="p">📷 摄影师</option>
+        <option value="m">💃 模特</option>
+        <option value="t">🏢 团队</option>
+      </select>
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:12px;color:#555;font-weight:600;">所在区域</label>
+      <input id="eArea" style="width:100%;padding:10px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-top:2px;" value="库尔勒市区">
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:12px;color:#555;font-weight:600;">风格（逗号分隔，如：人像,风光）</label>
+      <input id="eStyles" style="width:100%;padding:10px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-top:2px;">
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:12px;color:#555;font-weight:600;">作品名称（逗号分隔，如：孔雀河日出,胡杨林）</label>
+      <input id="eWorks" style="width:100%;padding:10px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-top:2px;">
+    </div>
+    <button class="btn btn-b" onclick="saveEditForm()" style="margin-top:4px;">✅ 保存</button>
+  </div>
+</div>
 <script>
 // ===== I18N =====
 var S={zh:{},ug:{}};
@@ -275,22 +308,32 @@ function saveMe(d){localStorage.setItem('lc_me',JSON.stringify(d));}
 
 function showEditForm(){
   var u=getMe()||{};
-  var n=prompt(T('edit')+'(昵称):',u.n||'摄友');if(!n)return;
-  var r=prompt('身份 (p=摄影师, m=模特, t=团队):',u.r||'p');if(!['p','m','t'].includes(r))r='p';
-  var a=prompt('所在区域:',u.a||'库尔勒市区');
-  var s=prompt('风格 (用逗号分隔):',(u.s||[]).join('、'));
-  var w=prompt('作品名称 (用逗号分隔):',(u.ws||[]).join('、'));
+  document.getElementById('eName').value=u.n||'';
+  document.getElementById('eRole').value=u.r||'p';
+  document.getElementById('eArea').value=u.a||'库尔勒市区';
+  document.getElementById('eStyles').value=(u.s||[]).join('、');
+  document.getElementById('eWorks').value=(u.ws||[]).join('、');
+  document.getElementById('editModal').style.display='flex';
+}
+function closeEdit(){document.getElementById('editModal').style.display='none';}
+// Click outside to close
+document.getElementById('editModal').onclick=function(e){if(e.target===this)closeEdit();}
+function saveEditForm(){
+  var n=document.getElementById('eName').value.trim();if(!n){toast('请输入昵称');return;}
+  var r=document.getElementById('eRole').value;
+  var a=document.getElementById('eArea').value.trim();
+  var s=document.getElementById('eStyles').value;
+  var w=document.getElementById('eWorks').value;
+  var u=getMe()||{};
   var me={id:u.id||'u'+Date.now(),n:n,r:r,a:a||'库尔勒市区',
-    s:s?s.split(/[,，、]+/).filter(function(x){return x;}):[],
-    ws:w?w.split(/[,，、]+/).filter(function(x){return x;}):[],
+    s:s?s.split(/[,，、]+/).map(function(x){return x.trim();}).filter(function(x){return x;}):[],
+    ws:w?w.split(/[,，、]+/).map(function(x){return x.trim();}).filter(function(x){return x;}):[],
     c:u.c||'#2c3e50'};
   saveMe(me);
-  // Update USERS
   var idx=USERS.findIndex(function(x){return x.id===me.id;});
   if(idx>-1)USERS[idx]=me;else USERS.push(me);
-  renderProfile();render();toast('✅ '+T('save'));
+  closeEdit();renderProfile();render();toast('✅ '+T('save'));
 }
-
 function renderAll(){render();renderActs();renderSpots();renderProfile();}
 
 // ===== START =====
