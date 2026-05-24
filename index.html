@@ -7,226 +7,294 @@
 <title>梨城摄友</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
-a,button,.tap{cursor:pointer;-webkit-tap-highlight-color:transparent;}
 body{background:#f5f5f5;font-size:16px;color:#333;padding-bottom:70px;max-width:480px;margin:0 auto;}
-.header{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:14px;position:sticky;top:0;z-index:100;}
+.header{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:12px 14px;position:sticky;top:0;z-index:100;}
 .h-top{display:flex;align-items:center;gap:8px;}
-.h-top h1{font-size:18px;flex:1;font-weight:700;}
-.h-top button{padding:4px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:0 0;color:#fff;font-size:11px;}
-.h-sub{font-size:11px;opacity:.7;margin-top:2px;}
-.tabs{display:flex;gap:3px;margin-top:8px;background:rgba(255,255,255,.12);border-radius:10px;padding:3px;}
-.tabs .t{flex:1;text-align:center;padding:6px 0;border-radius:8px;font-size:12px;color:rgba(255,255,255,.5);transition:.2s;}
+.h-top h1{font-size:17px;flex:1;font-weight:700;}
+.lang-btn{padding:3px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:0 0;color:#fff;font-size:10px;cursor:pointer;}
+.tabs{display:flex;gap:3px;margin-top:6px;background:rgba(255,255,255,.12);border-radius:8px;padding:2px;}
+.tabs .t{flex:1;text-align:center;padding:5px 0;border-radius:7px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;transition:.2s;}
 .tabs .t.act{background:#fff;color:#2c3e50;font-weight:700;}
-.page{display:none;padding:8px;}
+.page{display:none;padding:6px 8px;}
 .page.act{display:block;}
-.card{background:#fff;border-radius:12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;}
-.pad{padding:14px;}
-.flex{display:flex;gap:12px;align-items:center;}
-.av{width:48px;height:48px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;font-weight:700;}
-.badge{display:inline-block;font-size:10px;padding:1px 8px;border-radius:8px;margin-left:4px;}
-.b1{background:#e3f2fd;color:#1565c0;}
-.b2{background:#fce4ec;color:#c62828;}
-.b3{background:#e8f5e9;color:#2e7d32;}
+.pad{padding:12px;}
+.flex{display:flex;gap:10px;align-items:center;}
+.av{width:44px;height:44px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;font-weight:700;}
+.badge{display:inline-block;font-size:9px;padding:1px 7px;border-radius:7px;margin-left:3px;}
+.b1{background:#e3f2fd;color:#1565c0;}.b2{background:#fce4ec;color:#c62828;}.b3{background:#e8f5e9;color:#2e7d32;}
 .f1{flex:1;min-width:0;}
-.name{font-size:15px;font-weight:700;}
-.meta{font-size:11px;color:#888;margin-top:1px;}
-.tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:3px;}
-.tag{font-size:10px;background:#f0f2f5;padding:2px 8px;border-radius:8px;color:#555;}
-.rf{display:flex;gap:6px;padding:8px 0;}
-.rf .r{flex:1;text-align:center;padding:8px 4px;border-radius:10px;font-size:12px;font-weight:600;background:#f0f2f5;color:#888;cursor:pointer;}
-.rf .r.act{background:#fff;color:#2c3e50;box-shadow:0 1px 4px rgba(0,0,0,.08);}
-.rf .r .ic{font-size:16px;display:block;}
-.sf{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px;}
+.name{font-size:14px;font-weight:700;}
+.meta{font-size:10px;color:#888;margin-top:1px;}
+.tags{display:flex;gap:2px;flex-wrap:wrap;margin-top:2px;}
+.tag{font-size:9px;background:#f0f2f5;padding:1px 7px;border-radius:6px;color:#555;}
+.rf{display:flex;gap:4px;padding:6px 0;}
+.rf .r{flex:1;text-align:center;padding:6px 2px;border-radius:8px;font-size:11px;font-weight:600;background:#f0f2f5;color:#888;cursor:pointer;}
+.rf .r.act{background:#fff;color:#2c3e50;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.rf .r .ic{font-size:14px;display:block;}
+.sf{display:flex;gap:4px;overflow-x:auto;padding:2px 0 6px;}
 .sf::-webkit-scrollbar{display:none;}
-.sf .s{padding:5px 14px;border-radius:14px;border:1.5px solid #ddd;font-size:11px;white-space:nowrap;flex-shrink:0;color:#555;font-weight:500;cursor:pointer;}
+.sf .s{padding:4px 12px;border-radius:12px;border:1.5px solid #ddd;font-size:10px;white-space:nowrap;flex-shrink:0;color:#555;font-weight:500;cursor:pointer;}
 .sf .s.act{background:#3498db;color:#fff;border-color:#3498db;}
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;z-index:999;display:none;max-width:80%;text-align:center;}
-.bnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;padding:5px 0;max-width:480px;margin:0 auto;}
-.bnav .n{flex:1;text-align:center;padding:3px 0;cursor:pointer;}
-.bnav .n .ni{font-size:20px;}
-.bnav .n .nl{font-size:9px;color:#999;margin-top:1px;}
+.card{background:#fff;border-radius:10px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden;cursor:pointer;}
+.card:active{opacity:.8;}
+.btn{border:none;border-radius:8px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;text-align:center;display:block;width:100%;}
+.btn:active{opacity:.8;}
+.btn-b{background:#3498db;color:#fff;}
+.btn-g{background:#27ae60;color:#fff;}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:8px 18px;border-radius:16px;font-size:12px;z-index:999;display:none;max-width:80%;text-align:center;}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;padding:4px 0;max-width:480px;margin:0 auto;}
+.bnav .n{flex:1;text-align:center;padding:2px 0;cursor:pointer;}
+.bnav .n .ni{font-size:18px;}
+.bnav .n .nl{font-size:8px;color:#999;margin-top:0;}
 .bnav .n.act .nl{color:#3498db;font-weight:700;}
-.btn-primary{display:block;width:100%;padding:12px;background:#3498db;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;text-align:center;margin-top:8px;}
-.btn-primary:active{opacity:.9;}
-.btn-green{display:block;width:100%;padding:10px;background:#27ae60;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;text-align:center;margin:4px 0;}
 .empty{padding:40px 20px;text-align:center;color:#bbb;}
-.empty .eic{font-size:40px;margin-bottom:6px;}
-.empty p{font-size:13px;}
+.empty .eic{font-size:36px;margin-bottom:4px;}
+.empty p{font-size:12px;}
+#detail{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;padding:16px;overflow-y:auto;display:none;align-items:flex-end;justify-content:center;}
+#detail.show{display:flex;}
+#detail .box{background:#fff;border-radius:16px 16px 0 0;width:100%;max-width:440px;padding:16px;animation:up .3s;}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+#detail .close{text-align:right;font-size:18px;cursor:pointer;color:#999;padding:0 0 8px;}
+.empty-state{text-align:center;padding:40px 20px;color:#bbb;}
 #splash{position:fixed;inset:0;background:linear-gradient(135deg,#2c3e50,#1a252f);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.4s;}
 #splash.hide{opacity:0;pointer-events:none;}
-#splash .logo{font-size:56px;margin-bottom:10px;}
-#splash h1{color:#fff;font-size:20px;}
-#splash p{color:rgba(255,255,255,.4);font-size:12px;margin-top:4px;}
+#splash .logo{font-size:48px;margin-bottom:8px;}
+#splash h1{color:#fff;font-size:18px;}
+#splash p{color:rgba(255,255,255,.4);font-size:11px;margin-top:3px;}
 </style>
 </head>
 <body>
-<div id="splash"><div class="logo">📸</div><h1>梨城摄友</h1><p>库尔勒摄影社交平台</p></div>
+<div id="splash"><div class="logo">📸</div><h1 id="sTitle">梨城摄友</h1><p id="sSub">库尔勒摄影社交平台</p></div>
 <div class="header">
-  <div class="h-top"><h1>📸 梨城摄友</h1></div>
+  <div class="h-top"><h1 id="hTitle">📸 梨城摄友</h1><button class="lang-btn" id="langBtn" onclick="tgLang()">ئۇيغۇرچە</button></div>
   <div class="tabs">
-    <div class="t act" data-t="discover">发现</div>
-    <div class="t" data-t="activity">活动</div>
-    <div class="t" data-t="spots">摄点</div>
-    <div class="t" data-t="profile">我的</div>
+    <div class="t act" data-t="discover"><span class="ti" id="t1">发现</span></div>
+    <div class="t" data-t="activity"><span class="ti" id="t2">活动</span></div>
+    <div class="t" data-t="spots"><span class="ti" id="t3">摄点</span></div>
+    <div class="t" data-t="profile"><span class="ti" id="t4">我的</span></div>
   </div>
 </div>
 <div id="discover" class="page act"></div>
 <div id="activity" class="page"></div>
 <div id="spots" class="page"></div>
 <div id="profile" class="page"></div>
+<div id="detail"><div class="box"><div class="close" id="detailClose">✕</div><div id="detailBody"></div></div></div>
 <div class="bnav">
-  <div class="n act" data-t="discover"><div class="ni">🔍</div><div class="nl">发现</div></div>
-  <div class="n" data-t="activity"><div class="ni">🎯</div><div class="nl">活动</div></div>
-  <div class="n" data-t="spots"><div class="ni">📍</div><div class="nl">摄点</div></div>
-  <div class="n" data-t="profile"><div class="ni">👤</div><div class="nl">我的</div></div>
+  <div class="n act" data-t="discover"><div class="ni">🔍</div><div class="nl" id="n1">发现</div></div>
+  <div class="n" data-t="activity"><div class="ni">🎯</div><div class="nl" id="n2">活动</div></div>
+  <div class="n" data-t="spots"><div class="ni">📍</div><div class="nl" id="n3">摄点</div></div>
+  <div class="n" data-t="profile"><div class="ni">👤</div><div class="nl" id="n4">我的</div></div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-// ===== ERROR CATCHING =====
-window.addEventListener('error',function(e){document.getElementById('toast').textContent='⚠️ 错误:'+e.message;document.getElementById('toast').style.display='block';setTimeout(function(){document.getElementById('toast').style.display='none';},5000);});
+// ===== I18N =====
+var S={zh:{},ug:{}};
+S.zh={
+  title:'梨城摄友',sub:'库尔勒摄影社交平台',
+  t1:'发现',t2:'活动',t3:'摄点',t4:'我的',
+  n1:'发现',n2:'活动',n3:'摄点',n4:'我的',
+  rAll:'全部',rP:'摄影师',rM:'模特',rT:'团队',
+  empty:'没有找到匹配的用户',emptyAct:'还没有采风活动',
+  join:'我要参加',joined:'已报名',
+  contact:'想认识 · 联系TA',
+  edit:'编辑资料',save:'保存成功',
+  works:'我的作品',noWorks:'还没有作品',
+  profile:'我的资料',startAct:'发起采风活动',
+  upload:'上传作品',
+  phone:'联系方式'
+};
+S.ug={
+  title:'كۆرۈش سەرخىلى',sub:'كورلا فوتو سۇپىسى',
+  t1:'بايقاش',t2:'پائالىيەت',t3:'نۇقتىلار',t4:'مېنىڭ',
+  n1:'بايقاش',n2:'پائالىيەت',n3:'نۇقتىلار',n4:'مېنىڭ',
+  rAll:'ھەممىسى',rP:'فوتوگراف',rM:'مودېل',rT:'گۇرۇپپا',
+  empty:'ماس كەلگەن ئىشلەتكۈچى يوق',emptyAct:'پائالىيەت يوق',
+  join:'قاتنىشىمەن',joined:'قاتناشتى',
+  contact:'تونۇشۇش · ئالاقىلىشىش',
+  edit:'تەھرىرلەش',save:'ساقلاندى',
+  works:'مېنىڭ ئەسەرلىرىم',noWorks:'ئەسەر يوق',
+  profile:'ئۇچۇرلىرىم',startAct:'پائالىيەت باشلاش',
+  upload:'ئەسەر يوللاش',
+  phone:'ئالاقە'
+};
+var L='zh';
+function T(k){return (S[L]&&S[L][k])||S.zh[k]||k;}
+function tgLang(){
+  L=(L==='zh'?'ug':'zh');
+  document.getElementById('langBtn').textContent=(L==='zh'?'ئۇيغۇرچە':'中文');
+  document.querySelector('html').lang=(L==='zh'?'zh-CN':'ug');
+  document.querySelector('html').dir=(L==='ug'?'rtl':'ltr');
+  applyT();renderAll();toast(L==='zh'?'🇨🇳 中文':'🇺🇿 ئۇيغۇرچە');
+}
+function applyT(){
+  ['sTitle','sSub','hTitle'].forEach(function(id){
+    var m=(id==='sTitle'||id==='hTitle')?'title':'sub';
+    document.getElementById(id).textContent=T(m);
+  });
+  if(L==='zh')document.getElementById('hTitle').innerHTML='📸 '+T('title');
+  else document.getElementById('hTitle').innerHTML=T('title');
+  for(var i=1;i<=4;i++){
+    document.getElementById('t'+i).textContent=T('t'+i);
+    document.getElementById('n'+i).textContent=T('n'+i);
+  }
+}
 // ===== DATA =====
-var USERS=[{id:'u1',name:'老李头的相机',role:'p',color:'#1565c0',area:'库尔勒市区',styles:['人像','风光','纪实'],gear:'Canon·大疆',exp:'5-10年',bio:'退休后爱上摄影，擅长人像和风光。'},{id:'u2',name:'天山雪莲',role:'m',color:'#c62828',area:'库尔勒开发区',styles:['人像','古风','街拍'],mtypes:'平面·视频',mexp:'有经验',bio:'退休教师，喜欢拍照留念。'},{id:'u3',name:'梨城摄影工作室',role:'t',color:'#2e7d32',area:'库尔勒市区',styles:['人像','婚礼','商业'],services:'摄影·化妆·服装·修图',bio:'拥有200平摄影棚，全套灯光设备。'},{id:'u4',name:'快乐摄影人',role:'p',color:'#1565c0',area:'库尔勒市区',styles:['风光','星空','航拍'],gear:'Sony·大疆·稳定器',exp:'3-5年',bio:'喜欢拍星空和日出日落。'},{id:'u5',name:'ئانارخان',role:'m',color:'#c62828',area:'库尔勒市区',styles:['人像','古风','纪实'],mtypes:'平面',mexp:'有经验',bio:'مەن ئۇيغۇر، ئەنئەنىۋى ئۇسلۇبتا سۈرەتكە چۈشۈشنى ياخشى كۆرىمەن.'}];
-var ACTIVITIES=[{t:'孔雀河日出人像约拍',o:'老李头的相机',l:'孔雀河',d:'2026-11-02',tm:'07:30',m:6,j:3,desc:'拍日出逆光人像，提供Canon R5。拍完喝早茶交流。'},{t:'胡杨林古风采风',o:'梨城摄影工作室',l:'轮台胡杨林',d:'2026-11-05',tm:'08:00',m:8,j:5,desc:'提供摄影师+化妆师+古风服装。招募模特2-3名。'},{t:'手机摄影技巧交流',o:'快乐摄影人',l:'风帆广场茶楼',d:'2026-10-30',tm:'16:00',m:12,j:7,desc:'分享构图光线技巧，不限年龄，带手机就行。'}];
-var SPOTS=[{n:'孔雀河·建设桥',t:'城市风光',i:'🌉',d:'夜景灯光倒影是经典机位，适合人像和城市风光。'},{n:'天鹅河',t:'生态鸟类',i:'🦢',d:'冬季天鹅越冬，晨雾中格外有诗意。'},{n:'轮台胡杨林',t:'自然风光',i:'🌳',d:'10月中下旬黄金期，距库尔勒2小时车程。'},{n:'博斯腾湖',t:'湖光水色',i:'🌅',d:'日落时分的渔船和飞鸟是必拍题材。'},{n:'龙山公园',t:'城市全景',i:'🏔️',d:'登龙山俯瞰库尔勒全景，适合拍日落和夜景。'},{n:'铁门关',t:'历史人文',i:'🏛️',d:'古丝路关隘，适合人文和古风人像。'}];
-var curTab='discover';
-var curRole='all',curStyle='all';
+var USERS=[
+  {id:'u1',name:'老李头的相机',role:'p',c:'#1565c0',area:'库尔勒市区',sty:['人像','风光','纪实'],gear:'Canon·大疆',exp:'5-10年',bio:'退休后爱上摄影，擅长人像和风光。',img:''},
+  {id:'u2',name:'天山雪莲',role:'m',c:'#c62828',area:'库尔勒开发区',sty:['人像','古风','街拍'],mt:'平面·视频',me:'有经验',bio:'退休教师，喜欢拍照留念。',img:''},
+  {id:'u3',name:'梨城摄影工作室',role:'t',c:'#2e7d32',area:'库尔勒市区',sty:['人像','婚礼','商业'],sv:'摄影·化妆·服装·修图',bio:'拥有200平摄影棚，全套灯光设备。',img:''},
+  {id:'u4',name:'ئانارخان',role:'m',c:'#c62828',area:'库尔勒市区',sty:['人像','古风','纪实'],mt:'平面',me:'有经验',bio:'مەن ئۇيغۇر، ئەنئەنىۋى ئۇسلۇبتا سۈرەتكە چۈشۈشنى ياخشى كۆرىمەن.',img:''},
+  {id:'u5',name:'快乐摄影人',role:'p',c:'#1565c0',area:'库尔勒市区',sty:['风光','星空','航拍'],gear:'Sony·大疆',exp:'3-5年',bio:'喜欢拍星空和日出日落。',img:''},
+  {id:'u6',name:'艾德莱斯姑娘',role:'m',c:'#c62828',area:'尉犁县',sty:['人像','古风','纪实'],mt:'平面·视频',me:'有经验',bio:'喜欢穿艾德莱斯绸拍照，展示维吾尔族传统服饰之美。',img:''},
+  {id:'u7',name:'库尔勒光影',role:'t',c:'#2e7d32',area:'库尔勒市区',sty:['人像','亲子','婚礼'],sv:'专业摄影·化妆造型·服装',bio:'团队熟悉库尔勒各大拍摄点位，提供民族特色服饰。',img:''}
+];
+var ACTS=[
+  {t:'孔雀河日出人像约拍',o:'老李头的相机',l:'孔雀河',d:'2026-11-02',tm:'07:30',m:6,j:3,desc:'拍日出逆光人像，提供Canon R5+反光板。'},
+  {t:'胡杨林古风采风',o:'梨城摄影工作室',l:'轮台胡杨林',d:'2026-11-05',tm:'08:00',m:8,j:5,desc:'提供摄影师+化妆师+古风服装。'},
+  {t:'ئۇيغۇرچە سۈرەت',o:'ئانارخان',l:'كورلا بوغازى',d:'2026-11-08',tm:'10:00',m:10,j:3,desc:'ئەنئەنىۋى ئۇسلۇبتا سۈرەتكە چۈشۈش.'},
+  {t:'手机摄影技巧交流',o:'快乐摄影人',l:'风帆广场',d:'2026-10-30',tm:'16:00',m:12,j:7,desc:'分享构图光线技巧，不限年龄。'}
+];
+var SPOTS=[
+  {n:'孔雀河·建设桥',t:'城市风光',i:'🌉',d:'夜景灯光倒影是经典机位，适合人像和城市风光。'},
+  {n:'天鹅河',t:'生态鸟类',i:'🦢',d:'冬季天鹅越冬，晨雾中格外有诗意。'},
+  {n:'轮台胡杨林',t:'自然风光',i:'🌳',d:'10月中下旬黄金期，距库尔勒2小时车程。'},
+  {n:'博斯腾湖',t:'湖光水色',i:'🌅',d:'日落渔船飞鸟，必拍题材。距库尔勒1小时。'},
+  {n:'龙山公园',t:'城市全景',i:'🏔️',d:'登龙山俯瞰全城，适合日落夜景。'},
+  {n:'铁门关',t:'历史人文',i:'🏛️',d:'古丝路关隘，适合人文和古风人像。'},
+  {n:'罗布人村寨',t:'民俗人文',i:'🏕️',d:'尉犁县特色村落，沙漠胡杨与罗布文化。'},
+  {n:'七个星千佛洞',t:'历史古迹',i:'🪨',d:'焉耆县古佛教遗址，适合人文摄影。'}
+];
+var cur='discover',cr='all',cs='all',my=null;
 
 function $(id){return document.getElementById(id);}
+function qs(s){return document.querySelector(s);}
+function qa(s){return document.querySelectorAll(s);}
 
-function renderUsers(){
+function render(){
   var h='';
   var fl=USERS.filter(function(u){
-    if(curRole!=='all'&&u.role!==curRole)return false;
-    if(curStyle!=='all'&&(!u.styles||u.styles.indexOf(curStyle)===-1))return false;
+    if(cr!=='all'&&u.role!==cr)return false;
+    if(cs!=='all'&&(!u.sty||u.sty.indexOf(cs)===-1))return false;
     return true;
   });
-  if(fl.length===0){$('discover').innerHTML='<div class="empty"><div class="eic">🔍</div><p>没有找到匹配的用户</p></div>';return;}
-  fl.forEach(function(u){
-    var badge=u.role==='p'?'📷 摄影师':u.role==='m'?'💃 模特':'🏢 团队';
-    var bc=u.role==='p'?'b1':u.role==='m'?'b2':'b3';
-    var ts=(u.styles||[]).map(function(s){return '<span class="tag">#'+s+'</span>';}).join('');
-    var ext=u.role==='p'?'📷 '+u.gear:u.role==='m'?'💃 '+u.mtypes:'🏢 '+u.services;
-    h+='<div class="card tap" onclick="showDetail(this,\''+u.id+'\')"><div class="flex pad">'+
-      '<div class="av" style="background:'+u.color+';">'+u.name[0]+'</div>'+
-      '<div class="f1"><div class="name">'+u.name+' <span class="badge '+bc+'">'+badge+'</span></div>'+
-      '<div class="meta">📍 '+u.area+' · '+ext+'</div><div class="tags">'+ts+'</div></div></div></div>';
+  if(fl.length===0){$('discover').innerHTML='<div class="empty"><div class="eic">🔍</div><p>'+T('empty')+'</p></div>';return;}
+  var rf='<div class="rf">'+
+    '<div class="r'+(cr==='all'?' act':'')+'" onclick="setR(\'all\')"><span class="ic">👥</span>'+T('rAll')+'</div>'+
+    '<div class="r'+(cr==='p'?' act':'')+'" onclick="setR(\'p\')"><span class="ic">📷</span>'+T('rP')+'</div>'+
+    '<div class="r'+(cr==='m'?' act':'')+'" onclick="setR(\'m\')"><span class="ic">💃</span>'+T('rM')+'</div>'+
+    '<div class="r'+(cr==='t'?' act':'')+'" onclick="setR(\'t\')"><span class="ic">🏢</span>'+T('rT')+'</div></div>';
+  var sf='<div class="sf">'+
+    '<div class="s'+(cs==='all'?' act':'')+'" onclick="setS(\'all\')">'+T('rAll')+'</div>';
+  ['人像','风光','古风','街拍','纪实','婚礼','亲子','星空','航拍'].forEach(function(s){
+    sf+='<div class="s'+(cs===s?' act':'')+'" onclick="setS(\''+s+'\')">'+s+'</div>';
   });
-  $('discover').innerHTML='<div class="rf" id="roleFilter">'+
-    '<div class="r act" onclick="setRole(\'all\')"><span class="ic">👥</span>全部</div>'+
-    '<div class="r" onclick="setRole(\'p\')"><span class="ic">📷</span>摄影师</div>'+
-    '<div class="r" onclick="setRole(\'m\')"><span class="ic">💃</span>模特</div>'+
-    '<div class="r" onclick="setRole(\'t\')"><span class="ic">🏢</span>团队</div></div>'+
-    '<div class="sf" id="styleFilter">'+
-    '<div class="s act" onclick="setStyle(\'all\')">全部</div>'+
-    ['人像','风光','古风','街拍','纪实','婚礼','亲子','星空','航拍'].map(function(s){return '<div class="s" onclick="setStyle(\''+s+'\')">'+s+'</div>';}).join('')+'</div>'+h;
+  sf+='</div>';
+  fl.forEach(function(u){
+    var bd=u.role==='p'?'📷 '+T('rP'):u.role==='m'?'💃 '+T('rM'):'🏢 '+T('rT');
+    var bc=u.role==='p'?'b1':u.role==='m'?'b2':'b3';
+    var ts=(u.sty||[]).map(function(s){return '<span class="tag">#'+s+'</span>';}).join('');
+    var ex=u.role==='p'?'📷 '+u.gear:u.role==='m'?'💃 '+u.mt:'🏢 '+u.sv;
+    h+='<div class="card" onclick="showD(\''+u.id+'\')"><div class="flex pad">'+
+      '<div class="av" style="background:'+u.c+';">'+u.name[0]+'</div>'+
+      '<div class="f1"><div class="name">'+u.name+' <span class="badge '+bc+'">'+bd+'</span></div>'+
+      '<div class="meta">📍 '+u.area+' · '+ex+'</div><div class="tags">'+ts+'</div></div></div></div>';
+  });
+  $('discover').innerHTML=rf+sf+h;
 }
 
-function setRole(r){
-  curRole=r;
-  var els=document.querySelectorAll('#roleFilter .r');
-  for(var i=0;i<els.length;i++)els[i].classList.remove('act');
-  var act=document.querySelector('#roleFilter .r[onclick*="'+r+'"]');
-  if(act)act.classList.add('act');
-  renderUsers();
-}
+function setR(r){cr=r;render();}
+function setS(s){cs=s;render();}
 
-function setStyle(s){
-  curStyle=s;
-  var els=document.querySelectorAll('#styleFilter .s');
-  for(var i=0;i<els.length;i++)els[i].classList.remove('act');
-  var act=document.querySelector('#styleFilter .s[onclick*="'+s+'"]');
-  if(act)act.classList.add('act');
-  renderUsers();
-}
-
-function showDetail(el,uid){
+function showD(uid){
   var u=USERS.find(function(x){return x.id===uid;});if(!u)return;
-  var badge=u.role==='p'?'📷 摄影师':u.role==='m'?'💃 模特':'🏢 团队';
-  var ts=(u.styles||[]).map(function(s){return '<span class="tag">#'+s+'</span>';}).join('');
-  var extra='';
-  if(u.role==='p')extra='<div class="pad" style="border-top:1px solid #f0f0f0;"><b>📷 设备：</b>'+u.gear+'<br><b>⏳ 经验：</b>'+u.exp+'</div>';
-  if(u.role==='m')extra='<div class="pad" style="border-top:1px solid #f0f0f0;"><b>💃 类型：</b>'+u.mtypes+'<br><b>📊 经验：</b>'+u.mexp+'</div>';
-  if(u.role==='t')extra='<div class="pad" style="border-top:1px solid #f0f0f0;"><b>🏢 服务：</b>'+u.services+'</div>';
-  var html='<div class="card"><div class="flex pad" style="padding-bottom:8px;">'+
-    '<div class="av" style="width:56px;height:56px;font-size:24px;background:'+u.color+';">'+u.name[0]+'</div>'+
-    '<div class="f1"><div style="font-size:17px;font-weight:700;">'+u.name+'</div>'+
-    '<div style="font-size:12px;color:#888;">'+badge+' · 📍 '+u.area+'</div></div></div>'+
-    '<div class="pad" style="padding-top:0;"><div class="tags">'+ts+'</div></div>'+
-    extra+
-    '<div class="pad" style="border-top:1px solid #f0f0f0;"><div style="font-size:13px;color:#555;line-height:1.8;">'+(u.bio||'暂无简介')+'</div></div></div>'+
-    '<button class="btn-primary" onclick="toast(\'✅ 联系方式：请联系对方微信或电话\')">💌 想认识 · 联系TA</button>';
-  var div=document.createElement('div');
-  div.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;padding:20px;overflow-y:auto;display:flex;align-items:flex-end;justify-content:center;';
-  div.onclick=function(e){if(e.target===div){document.body.removeChild(div);}};
-  div.innerHTML='<div style="background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:440px;padding:20px;animation:slide .3s;">'+
-    '<div style="text-align:right;font-size:20px;cursor:pointer;color:#999;" onclick="this.parentElement.parentElement.remove();">✕</div>'+html+'</div>';
-  document.body.appendChild(div);
+  var bd=u.role==='p'?'📷 '+T('rP'):u.role==='m'?'💃 '+T('rM'):'🏢 '+T('rT');
+  var ts=(u.sty||[]).map(function(s){return '<span class="tag">#'+s+'</span>';}).join('');
+  var ex='';
+  if(u.role==='p')ex='<div class="pad" style="border-top:1px solid #eee;font-size:12px;"><b>📷 '+T('upload')+'：</b>'+u.gear+'<br><b>⏳ 经验：</b>'+u.exp+'</div>';
+  if(u.role==='m')ex='<div class="pad" style="border-top:1px solid #eee;font-size:12px;"><b>💃 类型：</b>'+u.mt+'<br><b>📊 经验：</b>'+(u.me||'')+'</div>';
+  if(u.role==='t')ex='<div class="pad" style="border-top:1px solid #eee;font-size:12px;"><b>🏢 服务：</b>'+u.sv+'</div>';
+  var w=(u.ws&&u.ws.length>0)?u.ws.map(function(w){return '<div style="background:#f0f2f5;border-radius:8px;padding:8px;margin:4px 0;font-size:11px;">📷 '+w+'</div>';}).join(''):'<div style="font-size:11px;color:#bbb;">'+T('noWorks')+'</div>';
+  $('detailBody').innerHTML='<div class="flex pad" style="padding-bottom:6px;"><div class="av" style="width:52px;height:52px;font-size:22px;background:'+u.c+';">'+u.name[0]+'</div><div class="f1"><div style="font-size:16px;font-weight:700;">'+u.name+'</div><div style="font-size:11px;color:#888;">'+bd+' · 📍 '+u.area+'</div></div></div>'+
+    '<div class="pad" style="padding-top:0;"><div class="tags">'+ts+'</div></div>'+ex+
+    '<div class="pad" style="border-top:1px solid #eee;"><div style="font-size:12px;color:#555;line-height:1.7;">'+(u.bio||'')+'</div></div>'+
+    '<div class="pad" style="border-top:1px solid #eee;"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">📷 '+T('works')+'</div>'+w+'</div>'+
+    '<button class="btn btn-b" onclick="toast(\'📞 '+T('phone')+'：'+((my&&my.id===uid)?T('edit'):(u.ph||T('phone')+'待确认'))+'\')" style="margin:8px 0;">💌 '+T('contact')+'</button>';
+  $('detail').classList.add('show');
 }
 
-function renderActivities(){
-  var h='<button class="btn-green" onclick="toast(\'📝 请输入活动信息\')">🎯 发起采风活动</button>';
-  ACTIVITIES.forEach(function(a){
-    h+='<div class="card"><div class="pad"><div style="display:flex;justify-content:space-between;"><div style="font-size:15px;font-weight:700;">'+a.t+'</div><div style="font-size:10px;padding:2px 10px;border-radius:10px;background:#e8f5e9;color:#2e7d32;">进行中</div></div>'+
-      '<div style="font-size:11px;color:#666;margin:6px 0;">📅 '+a.d+' · ⏰ '+a.tm+' · 📍 '+a.l+' · 👥 '+a.j+'/'+a.m+'人</div>'+
-      '<div style="font-size:12px;color:#555;line-height:1.7;">'+a.desc+'</div>'+
-      '<div style="display:flex;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid #f0f0f0;"><span style="font-size:12px;flex:1;">发起人：<b>'+a.o+'</b></span>'+
-      '<button class="btn-primary" style="width:auto;padding:6px 16px;font-size:12px;margin:0;" onclick="toast(\'✅ 报名成功！\')">✋ 我要参加</button></div></div></div>';
+$('detailClose').onclick=function(){$('detail').classList.remove('show');};
+$('detail').onclick=function(e){if(e.target===this)this.classList.remove('show');};
+
+function renderActs(){
+  var h='<button class="btn btn-g" onclick="addAct()">🎯 '+T('startAct')+'</button>';
+  ACTS.forEach(function(a){
+    h+='<div class="card"><div class="pad"><div style="display:flex;justify-content:space-between;"><div style="font-size:14px;font-weight:700;">'+a.t+'</div><div style="font-size:9px;padding:2px 8px;border-radius:8px;background:#e8f5e9;color:#2e7d32;">'+T('join')+'</div></div>'+
+      '<div style="font-size:10px;color:#666;margin:4px 0;">📅 '+a.d+' · ⏰ '+a.tm+' · 📍 '+a.l+' · 👥 '+a.j+'/'+a.m+'人</div>'+
+      '<div style="font-size:11px;color:#555;line-height:1.6;">'+a.desc+'</div>'+
+      '<div style="display:flex;align-items:center;margin-top:6px;padding-top:6px;border-top:1px solid #f0f0f0;"><span style="font-size:11px;flex:1;">发起人：<b>'+a.o+'</b></span>'+
+      '<button class="btn btn-b" style="width:auto;padding:5px 14px;font-size:11px;margin:0;" onclick="event.stopPropagation();toast(\'✅ '+T('joined')+'\')">✋ '+T('join')+'</button></div></div></div>';
   });
   $('activity').innerHTML=h;
 }
 
+function addAct(){
+  var t=prompt(T('startAct')+':');if(!t)return;
+  var d=prompt('日期 如 2026-11-05:');if(!d)return;
+  var l=prompt('地点:');if(!l)return;
+  ACTS.unshift({t:t,o:my?my.name:'摄友',l:l,d:d,tm:'待定',m:10,j:1,desc:'新活动'});
+  renderActs();toast('✅ 已发布');
+}
+
 function renderSpots(){
   var h='';
-  SPOTS.forEach(function(s){h+='<div class="card flex"><div style="width:60px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(135deg,#e8f0fe,#d4e4f7);">'+s.i+'</div><div class="pad" style="flex:1;"><div style="font-size:14px;font-weight:700;">'+s.n+'</div><div style="font-size:10px;color:#3498db;">'+s.t+'</div><div style="font-size:11px;color:#666;margin-top:4px;">'+s.d+'</div></div></div>';});
+  SPOTS.forEach(function(s){h+='<div class="card flex"><div style="width:55px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;">'+s.i+'</div><div class="pad" style="flex:1;"><div style="font-size:13px;font-weight:700;">'+s.n+'</div><div style="font-size:9px;color:#3498db;">'+s.t+'</div><div style="font-size:10px;color:#666;margin-top:3px;">'+s.d+'</div></div></div>';});
   $('spots').innerHTML=h;
 }
 
 function renderProfile(){
-  $('profile').innerHTML='<div class="empty"><div class="eic">👤</div><p>完善个人资料，让更多人认识你</p><button class="btn-primary" onclick="updateProfile()" style="max-width:180px;margin:12px auto 0;font-size:12px;padding:10px;">✏️ 编辑资料</button></div>';
+  $('profile').innerHTML='<div class="card"><div class="pad"><div style="text-align:center;padding:12px;"><div class="av" style="width:56px;height:56px;font-size:24px;background:#2c3e50;margin:0 auto 8px;">'+(my?my.name[0]:'?')+'</div><div style="font-size:16px;font-weight:700;">'+(my?my.name:T('profile'))+'</div></div>'+
+    '<button class="btn btn-b" onclick="editProfile()">✏️ '+T('edit')+'</button>'+
+    (my&&my.ws&&my.ws.length>0?'<div style="margin-top:12px;padding-top:12px;border-top:1px solid #eee;"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">📷 '+T('works')+'</div>'+my.ws.map(function(w){return '<div style="background:#f0f2f5;border-radius:8px;padding:8px;margin:4px 0;font-size:11px;">📷 '+w+'</div>';}).join('')+'</div>':'')+
+    '</div></div>';
 }
 
-function updateProfile(){
-  var name=prompt('请输入你的昵称：');
-  if(!name)return;
-  toast('✅ 资料已保存！昵称：'+name);
+function editProfile(){
+  var n=prompt(T('edit')+':','摄友');if(!n)return;
+  if(!my){my={id:'u'+Date.now(),c:'#2c3e50',ws:[]};USERS.push(my);}
+  my.name=n;
+  var w=prompt(T('upload')+':\n(输入作品名称，用逗号分隔)','');
+  if(w){my.ws=(my.ws||[]).concat(w.split(/[,，]/).map(function(x){return x.trim();}).filter(function(x){return x;}));}
+  renderProfile();toast('✅ '+T('save'));
 }
+
+// ===== NAV =====
+function switchTab(t){
+  cur=t;
+  qa('.page').forEach(function(p){p.classList.toggle('act',p.id===t);});
+  qa('.tabs .t').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
+  qa('.bnav .n').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
+  if(t==='discover')render();
+  if(t==='activity')renderActs();
+  if(t==='spots')renderSpots();
+  if(t==='profile')renderProfile();
+}
+
+qa('.tabs .t').forEach(function(el){el.addEventListener('click',function(){switchTab(this.dataset.t);});});
+qa('.bnav .n').forEach(function(el){el.addEventListener('click',function(){switchTab(this.dataset.t);});});
 
 function toast(msg){
   var t=$('toast');t.textContent=msg;t.style.display='block';
   setTimeout(function(){t.style.display='none';},2000);
 }
 
-function switchTab(t){
-  var pages=['discover','activity','spots','profile'];
-  pages.forEach(function(p){
-    $(p).classList.toggle('act',p===t);
-  });
-  document.querySelectorAll('.tabs .t').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
-  document.querySelectorAll('.bnav .n').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
-  curTab=t;
-  if(t==='discover')renderUsers();
-}
+function renderAll(){render();renderActs();renderSpots();renderProfile();}
 
-function init(){
-  // Hide splash
-  setTimeout(function(){var s=$('splash');if(s)s.classList.add('hide');},300);
-  // Tab switching
-  document.querySelectorAll('.tabs .t').forEach(function(el){
-    el.addEventListener('click',function(){switchTab(this.dataset.t);});
-  });
-  document.querySelectorAll('.bnav .n').forEach(function(el){
-    el.addEventListener('click',function(){switchTab(this.dataset.t);});
-  });
-  // Render all
-  renderUsers();
-  renderActivities();
-  renderSpots();
-  renderProfile();
-}
-
-// Start
-try{init();}catch(e){console.error(e);$('toast').textContent='⚠️ 加载出错，请刷新页面';$('toast').style.display='block';setTimeout(function(){var s=$('splash');if(s)s.classList.add('hide');},1000);}
+// ===== START =====
+try{
+  applyT();
+  renderAll();
+  setTimeout(function(){var s=$('splash');if(s)s.classList.add('hide');},400);
+}catch(e){console.error(e);toast('⚠️ '+e.message);setTimeout(function(){var s=$('splash');if(s)s.classList.add('hide');},500);}
 </script>
-<style>@keyframes slide{from{transform:translateY(100%);}to{transform:translateY(0);}}</style>
 </body>
 </html>
