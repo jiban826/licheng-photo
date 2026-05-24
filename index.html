@@ -4,307 +4,340 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#2c3e50">
-<title>梨城摄友 - 库尔勒中老年摄影社交</title>
+<title>梨城摄友 - 库尔勒摄影社交平台</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#222;font-size:16px;line-height:1.6;padding-bottom:80px;}
-:root{--primary:#2c3e50;--primary-light:#3498db;--accent:#e67e22;--bg:#f5f5f5;--card:#fff;--text:#222;--text-light:#888;--border:#eee;--safe-bottom:env(safe-area-inset-bottom,0px);}
-
-/* Splash */
-#splash{position:fixed;inset:0;background:linear-gradient(135deg,#2c3e50,#1a252f);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s;}
-#splash.hide{opacity:0;pointer-events:none;}
-#splash .logo{font-size:64px;margin-bottom:16px;}
-#splash h1{color:#fff;font-size:24px;font-weight:700;letter-spacing:2px;}
-#splash .sub{color:rgba(255,255,255,.5);font-size:14px;margin-top:6px;}
-#splash .loading-text{color:rgba(255,255,255,.3);font-size:12px;margin-top:24px;}
-
-/* Header */
-.app-header{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:16px 16px 14px;position:sticky;top:0;z-index:100;}
-.app-header h1{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px;}
-.app-header .sub{font-size:12px;opacity:.7;margin-top:2px;}
-.header-tabs{display:flex;gap:4px;margin-top:10px;background:rgba(255,255,255,.1);border-radius:10px;padding:3px;}
-.header-tabs .tab{flex:1;text-align:center;padding:6px 0;border-radius:8px;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer;transition:.2s;}
-.header-tabs .tab.active{background:#fff;color:#2c3e50;font-weight:600;}
-
-/* Pages */
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#222;font-size:15px;line-height:1.6;padding-bottom:75px;}
+:root{--primary:#2c3e50;--primary-light:#3498db;--accent:#e67e22;--success:#27ae60;--bg:#f5f5f5;--card:#fff;--text:#222;--text-light:#888;--border:#eee;--safe-bottom:env(safe-area-inset-bottom,0px);}
+.app-header{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:16px 16px 12px;position:sticky;top:0;z-index:100;}
+.app-header h1{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.app-header .sub{font-size:11px;opacity:.7;}
+.header-tabs{display:flex;gap:4px;margin-top:8px;background:rgba(255,255,255,.12);border-radius:10px;padding:3px;}
+.header-tabs .tab{flex:1;text-align:center;padding:6px 0;border-radius:8px;font-size:12px;color:rgba(255,255,255,.6);cursor:pointer;transition:.2s;font-weight:500;}
+.header-tabs .tab.active{background:#fff;color:#2c3e50;font-weight:700;}
 .page{display:none;}
 .page.active{display:block;}
-
-/* Feed */
-.feed{padding:12px;}
-.post-card{background:#fff;border-radius:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;}
-.post-card .post-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#f0f0f0;}
-.post-card .post-body{padding:12px 14px;}
-.post-card .post-user{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.post-card .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3498db,#2c3e50);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;flex-shrink:0;}
-.post-card .uname{font-size:15px;font-weight:600;}
-.post-card .uloc{font-size:12px;color:var(--text-light);}
-.post-card .post-desc{font-size:14px;color:#444;margin-bottom:8px;line-height:1.7;}
-.post-card .post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
-.post-card .tag{background:#eef2f7;color:#2c3e50;padding:2px 10px;border-radius:12px;font-size:11px;}
-.post-card .post-actions{display:flex;gap:20px;padding-top:8px;border-top:1px solid #f0f0f0;}
-.post-card .action{display:flex;align-items:center;gap:4px;font-size:13px;color:#999;cursor:pointer;}
-.post-card .action.liked{color:#e74c3c;}
-.post-card .action .num{font-size:12px;}
-.post-card .post-time{font-size:11px;color:#bbb;margin-top:6px;}
-
-/* Activities */
-.activity-list{padding:12px;}
-.activity-card{background:#fff;border-radius:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;}
-.activity-card .ac-header{padding:14px 14px 0;display:flex;justify-content:space-between;align-items:flex-start;}
-.activity-card .ac-title{font-size:17px;font-weight:700;}
-.activity-card .ac-status{font-size:11px;padding:3px 10px;border-radius:10px;background:#e8f5e9;color:#2e7d32;}
-.activity-card .ac-status.full{background:#fce4ec;color:#c62828;}
-.activity-card .ac-status.ended{background:#f5f5f5;color:#999;}
-.activity-card .ac-body{padding:10px 14px 14px;}
-.activity-card .ac-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
-.activity-card .ac-meta-item{font-size:13px;color:#666;display:flex;align-items:center;gap:4px;}
-.activity-card .ac-desc{font-size:14px;color:#555;line-height:1.7;margin-bottom:10px;}
-.activity-card .ac-org{display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid #f0f0f0;}
-.activity-card .ac-org .o-name{font-size:13px;font-weight:600;}
-.activity-card .ac-btn{background:var(--primary-light);color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:14px;cursor:pointer;font-weight:600;}
-.activity-card .ac-btn:active{transform:scale(.97);}
-.activity-card .ac-btn.joined{background:#e0e0e0;color:#888;}
-
-/* Spots */
-.spot-list{padding:12px;}
-.spot-card{background:#fff;border-radius:14px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;display:flex;}
-.spot-card .spot-img{width:100px;flex-shrink:0;background:#f0f0f0;}
-.spot-card .spot-img img{width:100%;height:100%;object-fit:cover;}
-.spot-card .spot-body{padding:12px;flex:1;}
-.spot-card .spot-name{font-size:16px;font-weight:700;margin-bottom:2px;}
-.spot-card .spot-type{font-size:11px;color:var(--primary-light);margin-bottom:4px;}
-.spot-card .spot-desc{font-size:13px;color:#666;line-height:1.6;}
-.spot-card .spot-count{font-size:11px;color:#bbb;margin-top:6px;}
-
-/* Pub Modal */
+/* Cards */
+.card{background:#fff;border-radius:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;}
+.card-pad{padding:14px;}
+/* User card in feed */
+.user-card{display:flex;gap:12px;padding:14px;align-items:center;}
+.user-card .uc-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0;font-weight:700;}
+.user-card .uc-info{flex:1;}
+.user-card .uc-name{font-size:16px;font-weight:700;}
+.user-card .uc-badge{display:inline-block;font-size:10px;padding:1px 8px;border-radius:8px;margin-left:6px;vertical-align:middle;}
+.badge-photographer{background:#e3f2fd;color:#1565c0;}
+.badge-model{background:#fce4ec;color:#c62828;}
+.badge-team{background:#e8f5e9;color:#2e7d32;}
+.user-card .uc-meta{font-size:12px;color:#888;margin-top:2px;display:flex;gap:8px;flex-wrap:wrap;}
+.user-card .uc-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
+.user-card .uc-tag{font-size:10px;background:#f0f2f5;padding:2px 8px;border-radius:8px;color:#555;}
+.user-card .uc-action{font-size:20px;color:#999;cursor:pointer;padding:4px;}
+/* Filters */
+.filter-bar{padding:8px 12px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.filter-btn{padding:6px 14px;border-radius:16px;border:1.5px solid #ddd;background:#fff;font-size:12px;cursor:pointer;white-space:nowrap;flex-shrink:0;color:#555;font-weight:500;}
+.filter-btn.active{background:var(--primary-light);color:#fff;border-color:var(--primary-light);}
+/* Role tabs */
+.role-tabs{display:flex;gap:6px;padding:10px 12px 6px;}
+.role-tab{flex:1;text-align:center;padding:8px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;background:#f0f2f5;color:#888;transition:.2s;}
+.role-tab.active{background:#fff;color:var(--primary);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.role-tab .rt-icon{font-size:20px;display:block;margin-bottom:2px;}
+/* Profile page */
+.profile-edit-btn{text-align:center;padding:6px 12px 12px;}
+.profile-edit-btn button{width:100%;padding:10px;border:1.5px dashed #ddd;border-radius:10px;background:transparent;font-size:14px;color:#999;cursor:pointer;}
+.profile-edit-btn button:active{background:#f5f5f5;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.info-item{background:#f8f9fa;border-radius:10px;padding:12px;}
+.info-item .ii-label{font-size:11px;color:#999;}
+.info-item .ii-value{font-size:14px;font-weight:600;margin-top:2px;color:#333;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;}
+.tag-item{background:#eef2f7;padding:4px 12px;border-radius:12px;font-size:12px;color:#444;}
+/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:flex-end;justify-content:center;}
 .modal-overlay.show{display:flex;}
 .modal-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:85vh;overflow-y:auto;padding:20px;animation:slideUp .3s ease-out;}
 @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
-.modal-sheet h2{font-size:18px;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.modal-close{font-size:24px;cursor:pointer;color:#999;float:right;}
+.modal-sheet h2{font-size:18px;margin-bottom:14px;display:flex;gap:8px;}
+.modal-close{font-size:22px;cursor:pointer;color:#999;float:right;margin-top:2px;}
 .form-group{margin-bottom:14px;}
-.form-group label{display:block;font-size:14px;font-weight:600;color:#555;margin-bottom:4px;}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;border:1.5px solid #ddd;border-radius:10px;font-size:15px;font-family:inherit;background:#fafafa;}
+.form-group label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:4px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:11px 12px;border:1.5px solid #ddd;border-radius:10px;font-size:14px;font-family:inherit;background:#fafafa;}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--primary-light);background:#fff;}
-.form-group textarea{min-height:80px;resize:vertical;}
-.file-input-wrap{position:relative;}
-.file-input-wrap input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
-.file-input-wrap .file-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#eef2f7;border-radius:10px;font-size:14px;color:#555;cursor:pointer;}
-.btn-primary{width:100%;padding:14px;background:var(--primary-light);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px;}
+.form-group textarea{min-height:70px;resize:vertical;}
+.form-group .help-text{font-size:11px;color:#bbb;margin-top:2px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{padding:6px 14px;border-radius:16px;border:1.5px solid #ddd;font-size:12px;cursor:pointer;background:#fff;transition:.2s;user-select:none;}
+.chip.selected{background:var(--primary-light);color:#fff;border-color:var(--primary-light);}
+.btn-primary{width:100%;padding:14px;background:var(--primary-light);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;}
 .btn-primary:active{transform:scale(.98);}
-
-/* Profile */
-.profile-header{text-align:center;padding:24px 16px;background:#fff;margin:12px;border-radius:14px;}
-.profile-header .big-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#3498db,#2c3e50);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;}
-.profile-header .p-name{font-size:20px;font-weight:700;}
-.profile-header .p-loc{font-size:13px;color:#888;margin-top:2px;}
-.profile-stats{display:flex;justify-content:center;gap:30px;margin-top:12px;}
-.profile-stats .stat{text-align:center;}
-.profile-stats .num{font-size:20px;font-weight:700;color:var(--primary);}
-.profile-stats .label{font-size:11px;color:#999;}
-.profile-section{margin:12px;background:#fff;border-radius:14px;padding:16px;}
-.profile-section h3{font-size:15px;margin-bottom:10px;color:var(--primary);}
-.profile-section .my-post{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #f5f5f5;}
-.profile-section .my-post:last-child{border:none;}
-.profile-section .my-post .mp-img{width:48px;height:48px;border-radius:8px;background:#f0f0f0;flex-shrink:0;}
-.profile-section .my-post .mp-title{font-size:13px;font-weight:600;}
-.profile-section .my-post .mp-date{font-size:11px;color:#bbb;}
-
-/* Empty state */
-.empty-state{text-align:center;padding:40px 20px;color:#bbb;}
-.empty-state .icon{font-size:48px;margin-bottom:12px;}
-.empty-state p{font-size:14px;}
-
+.btn-success{width:100%;padding:14px;background:var(--success);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;}
+.btn-success:active{transform:scale(.98);}
 /* Bottom Nav */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;padding:6px 0 calc(6px + var(--safe-bottom));z-index:200;box-shadow:0 -1px 8px rgba(0,0,0,.05);}
-.bottom-nav .nav-item{flex:1;text-align:center;padding:4px 0;cursor:pointer;transition:.2s;}
-.bottom-nav .nav-item .ni-icon{font-size:24px;}
+.bottom-nav .nav-item{flex:1;text-align:center;padding:4px 0;cursor:pointer;}
+.bottom-nav .nav-item .ni-icon{font-size:22px;}
 .bottom-nav .nav-item .ni-label{font-size:10px;color:#999;margin-top:1px;}
-.bottom-nav .nav-item.active .ni-label{color:var(--primary-light);font-weight:600;}
-.bottom-nav .nav-item .ni-badge{background:#e74c3c;color:#fff;font-size:10px;padding:1px 5px;border-radius:10px;position:absolute;margin-left:12px;margin-top:-4px;}
-
-/* FAB */
-.fab{position:fixed;bottom:80px;right:16px;width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:28px;cursor:pointer;box-shadow:0 4px 12px rgba(230,126,34,.3);z-index:150;display:flex;align-items:center;justify-content:center;transition:.2s;}
-.fab:active{transform:scale(.9);}
-
+.bottom-nav .nav-item.active .ni-label{color:var(--primary-light);font-weight:700;}
 /* Toast */
-#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:10px 24px;border-radius:24px;font-size:14px;z-index:999;opacity:0;transition:.3s;pointer-events:none;max-width:80%;text-align:center;}
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;z-index:999;opacity:0;transition:.3s;pointer-events:none;max-width:80%;text-align:center;}
 #toast.show{opacity:1;}
-
-@media(min-width:600px){
-  body{padding-bottom:0;max-width:500px;margin:0 auto;border-left:1px solid #eee;border-right:1px solid #eee;min-height:100vh;background:#fff;}
-  .bottom-nav{max-width:500px;left:50%;transform:translateX(-50%);}
-  .fab{right:calc(50% - 234px);}
-  #toast{left:50%;transform:translateX(-50%);}
-}
+/* Empty */
+.empty-state{text-align:center;padding:40px 20px;color:#bbb;}
+.empty-state .icon{font-size:48px;margin-bottom:8px;}
+.empty-state p{font-size:13px;}
+/* Interest button on user card */
+.interest-btn{font-size:12px;padding:6px 14px;border-radius:16px;border:none;cursor:pointer;font-weight:600;}
+.interest-btn.primary{background:var(--primary-light);color:#fff;}
+.interest-btn.outline{background:transparent;border:1.5px solid var(--primary-light);color:var(--primary-light);}
+/* User detail card */
+.detail-section{padding:14px;border-top:1px solid #f0f0f0;}
+.detail-section h3{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--primary);}
+.detail-section .ds-row{display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:1px solid #f8f8f8;}
+.detail-section .ds-row .ds-label{color:#888;}
+.detail-section .ds-row .ds-value{font-weight:600;text-align:right;}
+.portfolio-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;}
+.portfolio-placeholder{aspect-ratio:1;background:linear-gradient(135deg,#f0f2f5,#e0e4e8);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ccc;}
+/* Activity cards same as before */
+.activity-list{padding:12px;}
+.activity-card{background:#fff;border-radius:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;}
+.activity-card .ac-header{padding:14px 14px 0;display:flex;justify-content:space-between;align-items:flex-start;}
+.activity-card .ac-title{font-size:16px;font-weight:700;}
+.activity-card .ac-status{font-size:11px;padding:3px 10px;border-radius:10px;background:#e8f5e9;color:#2e7d32;flex-shrink:0;}
+.activity-card .ac-body{padding:10px 14px 14px;}
+.activity-card .ac-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.activity-card .ac-meta-item{font-size:12px;color:#666;}
+.activity-card .ac-desc{font-size:13px;color:#555;line-height:1.7;margin-bottom:8px;}
+.activity-card .ac-org{display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid #f0f0f0;}
+.activity-card .ac-org .o-name{font-size:13px;font-weight:600;}
+.activity-card .ac-btn{padding:7px 18px;border-radius:8px;border:none;font-size:13px;cursor:pointer;font-weight:600;flex-shrink:0;}
+.ac-btn.primary{background:var(--primary-light);color:#fff;}
+.ac-btn.joined{background:#e0e0e0;color:#888;}
+/* Spot cards */
+.spot-list{padding:12px;}
+.spot-card{background:#fff;border-radius:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);overflow:hidden;display:flex;}
+.spot-card .spot-icon{width:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:32px;background:linear-gradient(135deg,#e8f0fe,#d4e4f7);}
+.spot-card .spot-body{padding:12px;flex:1;}
+.spot-card .spot-name{font-size:15px;font-weight:700;}
+.spot-card .spot-type{font-size:11px;color:var(--primary-light);}
+.spot-card .spot-desc{font-size:12px;color:#666;margin-top:4px;line-height:1.6;}
+.spot-card .spot-count{font-size:11px;color:#bbb;margin-top:4px;}
+/* Splash */
+#splash{position:fixed;inset:0;background:linear-gradient(135deg,#2c3e50,#1a252f);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s;}
+#splash.hide{opacity:0;pointer-events:none;}
+#splash .logo{font-size:60px;margin-bottom:12px;}
+#splash h1{color:#fff;font-size:22px;font-weight:700;}
+#splash .sub{color:rgba(255,255,255,.5);font-size:13px;margin-top:4px;}
+@media(min-width:600px){body{padding-bottom:0;max-width:480px;margin:0 auto;border-left:1px solid #eee;border-right:1px solid #eee;min-height:100vh;background:#fff;}.bottom-nav{max-width:480px;left:50%;transform:translateX(-50%);}#toast{left:50%;transform:translateX(-50%);}}
 </style>
 </head>
 <body>
 
-<!-- Splash -->
 <div id="splash">
   <div class="logo">📸</div>
   <h1>梨城摄友</h1>
-  <div class="sub">库尔勒中老年摄影爱好者社区</div>
-  <div class="loading-text">加载中...</div>
+  <div class="sub">库尔勒 · 摄影师与模特对接平台</div>
 </div>
 
-<!-- Header -->
 <div class="app-header">
   <h1>📸 梨城摄友</h1>
-  <div class="sub">🏠 库尔勒 · 中老年摄影圈</div>
+  <div class="sub">库尔勒 · 摄影约拍对接平台</div>
 </div>
 
-<!-- ===== PAGE: FEED ===== -->
-<div id="pageFeed" class="page active">
-  <div style="padding:4px 12px 0;font-size:12px;color:#999;display:flex;gap:12px;flex-wrap:wrap;">
-    <span>📍 库尔勒</span>
-    <span>👥 <span id="userCount">0</span>位摄友</span>
+<!-- ===== TAB: DISCOVER ===== -->
+<div id="pageDiscover" class="page active">
+  <!-- Role filter -->
+  <div class="role-tabs" id="roleTabs">
+    <div class="role-tab active" data-role="all" onclick="filterRole('all')"><span class="rt-icon">👥</span>全部</div>
+    <div class="role-tab" data-role="photographer" onclick="filterRole('photographer')"><span class="rt-icon">📷</span>摄影师</div>
+    <div class="role-tab" data-role="model" onclick="filterRole('model')"><span class="rt-icon">💃</span>模特</div>
+    <div class="role-tab" data-role="team" onclick="filterRole('team')"><span class="rt-icon">🏢</span>团队</div>
   </div>
-  <div id="feedList" class="feed"></div>
+  <!-- Style filter -->
+  <div class="filter-bar" id="styleFilter">
+    <div class="filter-btn active" data-style="all" onclick="filterStyle('all')">全部</div>
+    <div class="filter-btn" data-style="人像" onclick="filterStyle('人像')">人像</div>
+    <div class="filter-btn" data-style="风光" onclick="filterStyle('风光')">风光</div>
+    <div class="filter-btn" data-style="古风" onclick="filterStyle('古风')">古风</div>
+    <div class="filter-btn" data-style="街拍" onclick="filterStyle('街拍')">街拍</div>
+    <div class="filter-btn" data-style="纪实" onclick="filterStyle('纪实')">纪实</div>
+    <div class="filter-btn" data-style="婚礼" onclick="filterStyle('婚礼')">婚礼</div>
+    <div class="filter-btn" data-style="亲子" onclick="filterStyle('亲子')">亲子</div>
+  </div>
+  <div id="discoverList"></div>
 </div>
 
-<!-- ===== PAGE: ACTIVITIES ===== -->
+<!-- ===== TAB: ACTIVITY ===== -->
 <div id="pageActivity" class="page">
+  <div style="padding:8px 12px 0;">
+    <button class="btn-success" onclick="showPubModal('activity')" style="padding:10px;font-size:13px;">🎯 发起采风活动</button>
+  </div>
   <div id="activityList" class="activity-list"></div>
 </div>
 
-<!-- ===== PAGE: SPOTS ===== -->
+<!-- ===== TAB: SPOTS ===== -->
 <div id="pageSpots" class="page">
   <div id="spotList" class="spot-list"></div>
 </div>
 
-<!-- ===== PAGE: PROFILE ===== -->
+<!-- ===== TAB: PROFILE ===== -->
 <div id="pageProfile" class="page">
-  <div class="profile-header">
-    <div class="big-avatar" id="myAvatar">我</div>
-    <div class="p-name" id="myName">我的梨城摄友</div>
-    <div class="p-loc" id="myLoc">📍 新疆 · 库尔勒</div>
-    <div class="profile-stats">
-      <div class="stat"><div class="num" id="statPosts">0</div><div class="label">作品</div></div>
-      <div class="stat"><div class="num" id="statActs">0</div><div class="label">活动</div></div>
-      <div class="stat"><div class="num" id="statLikes">0</div><div class="label">获赞</div></div>
+  <div id="profileContent">
+    <div style="text-align:center;padding:40px 20px;color:#bbb;">
+      <div style="font-size:48px;margin-bottom:8px;">👤</div>
+      <p style="font-size:14px;">请先完善个人信息</p>
+      <button class="btn-primary" onclick="showProfileEdit()" style="max-width:200px;margin:16px auto 0;font-size:13px;padding:10px;">完善资料</button>
     </div>
   </div>
-  <div class="profile-section">
-    <h3>📷 我的作品</h3>
-    <div id="myPosts"></div>
-  </div>
-  <div class="profile-section">
-    <h3>🎯 我的活动</h3>
-    <div id="myActivities"></div>
-  </div>
 </div>
-
-<!-- FAB -->
-<button class="fab" id="fabBtn" onclick="showPublishModal()">＋</button>
 
 <!-- Bottom Nav -->
 <div class="bottom-nav">
-  <div class="nav-item active" onclick="switchTab('feed')">
-    <div class="ni-icon">🏠</div>
-    <div class="ni-label">作品</div>
+  <div class="nav-item active" onclick="switchTab('discover')">
+    <div class="ni-icon">🔍</div><div class="ni-label">发现</div>
   </div>
   <div class="nav-item" onclick="switchTab('activity')">
-    <div class="ni-icon">🎯</div>
-    <div class="ni-label">活动</div>
+    <div class="ni-icon">🎯</div><div class="ni-label">活动</div>
   </div>
   <div class="nav-item" onclick="switchTab('spots')">
-    <div class="ni-icon">📍</div>
-    <div class="ni-label">摄点</div>
+    <div class="ni-icon">📍</div><div class="ni-label">摄点</div>
   </div>
   <div class="nav-item" onclick="switchTab('profile')">
-    <div class="ni-icon">👤</div>
-    <div class="ni-label">我的</div>
+    <div class="ni-icon">👤</div><div class="ni-label">我的</div>
   </div>
 </div>
 
-<!-- Publish Modal -->
-<div class="modal-overlay" id="publishModal">
+<!-- ===== PROFILE EDIT MODAL ===== -->
+<div class="modal-overlay" id="profileModal">
   <div class="modal-sheet">
-    <span class="modal-close" onclick="closeModal('publishModal')">✕</span>
-    <h2>📸 发布新作品</h2>
+    <span class="modal-close" onclick="closeModal('profileModal')">✕</span>
+    <h2>📝 完善我的资料</h2>
     <div class="form-group">
-      <label>选择照片</label>
-      <div class="file-input-wrap">
-        <div class="file-btn" id="photoFileName">📷 点击选择照片</div>
-        <input type="file" accept="image/*" id="photoInput" onchange="onPhotoSelect(event)">
+      <label>我是</label>
+      <div class="chips" id="roleChips">
+        <div class="chip" data-val="photographer" onclick="selectChip('roleChips','photographer')">📷 摄影师</div>
+        <div class="chip" data-val="model" onclick="selectChip('roleChips','model')">💃 模特/被拍</div>
+        <div class="chip" data-val="team" onclick="selectChip('roleChips','team')">🏢 团队/工作室</div>
       </div>
     </div>
     <div class="form-group">
-      <label>拍摄地点</label>
-      <select id="pubLocation">
-        <option value="孔雀河">孔雀河</option>
-        <option value="天鹅河">天鹅河</option>
-        <option value="杜鹃河">杜鹃河</option>
-        <option value="风帆广场">风帆广场</option>
-        <option value="建设桥">建设桥</option>
-        <option value="龙山公园">龙山公园</option>
-        <option value="铁门关">铁门关</option>
-        <option value="博斯腾湖">博斯腾湖</option>
-        <option value="轮台胡杨林">轮台胡杨林</option>
-        <option value="尉犁罗布人村寨">尉犁罗布人村寨</option>
+      <label>昵称/名称</label>
+      <input id="editName" placeholder="输入你的昵称">
+    </div>
+    <div class="form-group">
+      <label>所在区域</label>
+      <select id="editArea">
+        <option value="库尔勒市区">库尔勒市区</option>
+        <option value="库尔勒开发区">库尔勒开发区</option>
+        <option value="轮台县">轮台县</option>
+        <option value="尉犁县">尉犁县</option>
+        <option value="博湖县">博湖县</option>
+        <option value="焉耆县">焉耆县</option>
+        <option value="和静县">和静县</option>
         <option value="其他">其他</option>
       </select>
     </div>
     <div class="form-group">
-      <label>作品说明</label>
-      <textarea id="pubDesc" placeholder="说说拍摄心得、使用的器材…"></textarea>
+      <label>摄影/拍摄风格（可多选）</label>
+      <div class="chips" id="styleChips">
+        <div class="chip" data-val="人像" onclick="toggleChip('styleChips','人像')">人像</div>
+        <div class="chip" data-val="风光" onclick="toggleChip('styleChips','风光')">风光</div>
+        <div class="chip" data-val="古风" onclick="toggleChip('styleChips','古风')">古风</div>
+        <div class="chip" data-val="街拍" onclick="toggleChip('styleChips','街拍')">街拍</div>
+        <div class="chip" data-val="纪实" onclick="toggleChip('styleChips','纪实')">纪实</div>
+        <div class="chip" data-val="婚礼" onclick="toggleChip('styleChips','婚礼')">婚礼</div>
+        <div class="chip" data-val="亲子" onclick="toggleChip('styleChips','亲子')">亲子</div>
+        <div class="chip" data-val="宠物" onclick="toggleChip('styleChips','宠物')">宠物</div>
+        <div class="chip" data-val="美食" onclick="toggleChip('styleChips','美食')">美食</div>
+        <div class="chip" data-val="建筑" onclick="toggleChip('styleChips','建筑')">建筑</div>
+        <div class="chip" data-val="星空" onclick="toggleChip('styleChips','星空')">星空</div>
+        <div class="chip" data-val="航拍" onclick="toggleChip('styleChips','航拍')">航拍</div>
+        <div class="chip" data-val="运动" onclick="toggleChip('styleChips','运动')">运动</div>
+        <div class="chip" data-val="微距" onclick="toggleChip('styleChips','微距')">微距</div>
+        <div class="chip" data-val="胶片" onclick="toggleChip('styleChips','胶片')">胶片</div>
+        <div class="chip" data-val="商业" onclick="toggleChip('styleChips','商业')">商业</div>
+      </div>
+    </div>
+    <!-- Photographer specific -->
+    <div id="photographerFields" style="display:none;">
+      <div class="form-group">
+        <label>我的设备（可多选）</label>
+        <div class="chips" id="gearChips">
+          <div class="chip" data-val="Canon" onclick="toggleChip('gearChips','Canon')">Canon 佳能</div>
+          <div class="chip" data-val="Nikon" onclick="toggleChip('gearChips','Nikon')">Nikon 尼康</div>
+          <div class="chip" data-val="Sony" onclick="toggleChip('gearChips','Sony')">Sony 索尼</div>
+          <div class="chip" data-val="Fuji" onclick="toggleChip('gearChips','Fuji')">Fuji 富士</div>
+          <div class="chip" data-val="大疆" onclick="toggleChip('gearChips','大疆')">大疆 无人机</div>
+          <div class="chip" data-val="灯光设备" onclick="toggleChip('gearChips','灯光设备')">灯光设备</div>
+          <div class="chip" data-val="稳定器" onclick="toggleChip('gearChips','稳定器')">稳定器</div>
+          <div class="chip" data-val="手机摄影" onclick="toggleChip('gearChips','手机摄影')">手机摄影</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>从业年限</label>
+        <select id="editExp">
+          <option value="1年以下">1年以下（入门）</option>
+          <option value="1-3年" selected>1-3年（初级）</option>
+          <option value="3-5年">3-5年（中级）</option>
+          <option value="5-10年">5-10年（高级）</option>
+          <option value="10年以上">10年以上（资深）</option>
+        </select>
+      </div>
+    </div>
+    <!-- Model specific -->
+    <div id="modelFields" style="display:none;">
+      <div class="form-group">
+        <label>可接受拍摄类型</label>
+        <div class="chips" id="modelTypeChips">
+          <div class="chip" data-val="平面写真" onclick="toggleChip('modelTypeChips','平面写真')">平面写真</div>
+          <div class="chip" data-val="视频短片" onclick="toggleChip('modelTypeChips','视频短片')">视频短片</div>
+          <div class="chip" data-val="直播" onclick="toggleChip('modelTypeChips','直播')">直播</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>是否有拍摄经验</label>
+        <select id="editModelExp">
+          <option value="无经验，想试试">无经验，想试试</option>
+          <option value="有一些经验">有一些经验</option>
+          <option value="有丰富经验">有丰富经验</option>
+          <option value="专业模特">专业模特</option>
+        </select>
+      </div>
+    </div>
+    <!-- Team specific -->
+    <div id="teamFields" style="display:none;">
+      <div class="form-group">
+        <label>团队设备/服务（可多选）</label>
+        <div class="chips" id="teamServiceChips">
+          <div class="chip" data-val="专业摄影" onclick="toggleChip('teamServiceChips','专业摄影')">专业摄影</div>
+          <div class="chip" data-val="化妆造型" onclick="toggleChip('teamServiceChips','化妆造型')">化妆造型</div>
+          <div class="chip" data-val="服装道具" onclick="toggleChip('teamServiceChips','服装道具')">服装道具</div>
+          <div class="chip" data-val="摄影棚" onclick="toggleChip('teamServiceChips','摄影棚')">摄影棚</div>
+          <div class="chip" data-val="后期修图" onclick="toggleChip('teamServiceChips','后期修图')">后期修图</div>
+          <div class="chip" data-val="视频拍摄" onclick="toggleChip('teamServiceChips','视频拍摄')">视频拍摄</div>
+          <div class="chip" data-val="航拍服务" onclick="toggleChip('teamServiceChips','航拍服务')">航拍服务</div>
+        </div>
+      </div>
     </div>
     <div class="form-group">
-      <label>标签（逗号分隔）</label>
-      <input id="pubTags" placeholder="例如：胡杨,日出,风光" value="风光">
+      <label>个人简介</label>
+      <textarea id="editBio" placeholder="介绍一下自己，让更多人认识你…" style="min-height:60px;"></textarea>
     </div>
-    <button class="btn-primary" onclick="publishPost()">✨ 发布作品</button>
+    <div class="form-group">
+      <label>微信号/联系方式（选填）</label>
+      <input id="editContact" placeholder="方便其他人联系你">
+    </div>
+    <button class="btn-primary" onclick="saveProfile()">✅ 保存资料</button>
   </div>
 </div>
 
-<!-- Create Activity Modal -->
-<div class="modal-overlay" id="activityModal">
+<!-- ===== USER DETAIL MODAL ===== -->
+<div class="modal-overlay" id="userDetailModal">
   <div class="modal-sheet">
-    <span class="modal-close" onclick="closeModal('activityModal')">✕</span>
-    <h2>🎯 发起采风活动</h2>
-    <div class="form-group">
-      <label>活动名称</label>
-      <input id="actTitle" placeholder="例如：孔雀河日出拍摄">
-    </div>
-    <div class="form-group">
-      <label>活动地点</label>
-      <select id="actLocation">
-        <option value="孔雀河">孔雀河</option>
-        <option value="天鹅河">天鹅河</option>
-        <option value="风帆广场">风帆广场</option>
-        <option value="龙山公园">龙山公园</option>
-        <option value="铁门关">铁门关</option>
-        <option value="博斯腾湖">博斯腾湖</option>
-        <option value="轮台胡杨林">轮台胡杨林</option>
-        <option value="其他">其他</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>活动日期</label>
-      <input type="date" id="actDate">
-    </div>
-    <div class="form-group">
-      <label>时间</label>
-      <input type="time" id="actTime" value="07:00">
-    </div>
-    <div class="form-group">
-      <label>人数上限</label>
-      <input type="number" id="actMax" value="10" min="2" max="50">
-    </div>
-    <div class="form-group">
-      <label>活动详情</label>
-      <textarea id="actDesc" placeholder="描述拍摄计划、集合地点、注意事项…"></textarea>
-    </div>
-    <div class="form-group">
-      <label>联系方式</label>
-      <input id="actContact" placeholder="微信号或手机号">
-    </div>
-    <button class="btn-primary" onclick="publishActivity()">🎯 发布活动</button>
+    <span class="modal-close" onclick="closeModal('userDetailModal')">✕</span>
+    <div id="userDetailContent"></div>
   </div>
 </div>
 
@@ -313,46 +346,57 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <script>
 // ===== SAMPLE DATA =====
 (function(){
-  try{
-    var d=localStorage.getItem('lc_photos');
-    if(!d || JSON.parse(d).length===0) throw 'empty';
-  }catch(e){
-    var samplePhotos=[
-      {id:'s1',user:'老李头的相机',avatar:'李',location:'轮台胡杨林',desc:'今年轮台的胡杨黄得正好，一大早赶到拍了这张。相机D850，24-70mm。欢迎摄友交流！',tags:['胡杨','风光','新疆'],likes:12,comments:3,time:'2026-10-18',image:''},
-      {id:'s2',user:'天山雪莲',avatar:'莲',location:'天鹅河',desc:'天鹅河今年的天鹅来得早，清晨光影特别好。手机拍的，华为Pura70，原图直出。',tags:['天鹅','晨光','手机摄影'],likes:8,comments:2,time:'2026-10-15',image:''},
-      {id:'s3',user:'快乐摄影人',avatar:'乐',location:'博斯腾湖',desc:'博湖日落，渔船归来的瞬间。用了ND1000长曝30秒，水面像丝绸一样。',tags:['博湖','日落','长曝'],likes:15,comments:4,time:'2026-10-12',image:''},
-      {id:'s4',user:'梨城老张',avatar:'张',location:'孔雀河',desc:'孔雀河夜景，建设桥的灯光倒影。手持拍摄，ISO3200，后期降噪。',tags:['夜景','孔雀河','城市'],likes:6,comments:1,time:'2026-10-08',image:''},
-      {id:'s5',user:'沙漠胡杨',avatar:'胡',location:'尉犁罗布人村寨',desc:'罗布人村寨的沙漠与胡杨，大自然的鬼斧神工。有幸遇到了完美的晚霞。',tags:['沙漠','胡杨','晚霞'],likes:20,comments:5,time:'2026-10-05',image:''}
+  if(!localStorage.getItem('lc_users')){
+    var sampleUsers=[
+      {id:'u1',name:'老李头的相机',role:'photographer',area:'库尔勒市区',styles:['人像','风光','纪实'],gear:['Canon','大疆'],exp:'5-10年',bio:'退休后爱上摄影，擅长人像和风光，在库尔勒拍了20年胡杨。设备齐全，欢迎互勉约拍。',contact:'lilaotou123',avatar:'李',color:'#1565c0'},
+      {id:'u2',name:'天山雪莲',role:'model',area:'库尔勒开发区',styles:['人像','古风','街拍'],modelTypes:['平面写真','视频短片'],modelExp:'有一些经验',bio:'退休教师，喜欢拍照，想留一些好看的照片。古风、旗袍、日常生活风格都可以。',contact:'xuelian666',avatar:'莲',color:'#c62828'},
+      {id:'u3',name:'梨城摄影工作室',role:'team',area:'库尔勒市区',styles:['人像','婚礼','商业','亲子'],services:['专业摄影','化妆造型','服装道具','摄影棚','后期修图'],bio:'库尔勒本地专业摄影团队，拥有200平摄影棚和全套灯光设备。承接个人写真、婚纱、商业拍摄。',contact:'licheng-studio',avatar:'影',color:'#2e7d32'},
+      {id:'u4',name:'快乐摄影人',role:'photographer',area:'库尔勒市区',styles:['风光','星空','航拍'],gear:['Sony','大疆','稳定器'],exp:'3-5年',bio:'喜欢拍库尔勒的日出日落和星空。大疆御3飞行员，可接航拍。',contact:'kuaile666',avatar:'乐',color:'#1565c0'},
+      {id:'u5',name:'沙漠玫瑰',role:'model',area:'轮台县',styles:['人像','古风','纪实'],modelTypes:['平面写真'],modelExp:'有一些经验',bio:'住在轮台，胡杨林就是我的背景板。喜欢古风和民族风格，希望能遇到好摄影师合作。',contact:'meigui888',avatar:'玫',color:'#c62828'},
+      {id:'u6',name:'孔雀河畔',role:'photographer',area:'库尔勒市区',styles:['街拍','人像','纪实'],gear:['Fuji','手机摄影'],exp:'1-3年',bio:'富士相机用户，喜欢扫街和人文纪实。也爱用手机拍，相信好照片不在于器材。',contact:'kqriver',avatar:'河',color:'#1565c0'}
     ];
-    localStorage.setItem('lc_photos',JSON.stringify(samplePhotos));
+    localStorage.setItem('lc_users',JSON.stringify(sampleUsers));
   }
-  try{
-    var a=localStorage.getItem('lc_activities');
-    if(!a || JSON.parse(a).length===0) throw 'empty';
-  }catch(e){
+  if(!localStorage.getItem('lc_activities')){
     var sampleActs=[
-      {id:'a1',title:'孔雀河日出摄影采风',org:'老李头的相机',location:'孔雀河（建设桥段）',date:'2026-10-28',time:'07:00',max:10,joined:4,desc:'一起拍孔雀河日出，秋天晨光很美。拍完后可以一起去吃早茶交流。带上三脚架。',contact:'lilaotou123',status:'进行中'},
-      {id:'a2',title:'轮台胡杨林一日采风',org:'天山雪莲',location:'轮台胡杨林公园',date:'2026-11-02',time:'06:30',max:8,joined:6,desc:'胡杨林正值最佳观赏期，拼车前往。自带午餐和水。长焦镜头优先。',contact:'xuelian666',status:'进行中'},
-      {id:'a3',title:'手机摄影技巧分享会',org:'快乐摄影人',location:'风帆广场茶楼',date:'2026-10-26',time:'16:00',max:15,joined:8,desc:'不用单反，手机也能拍好照片。分享构图、光线、后期技巧。欢迎退休朋友参加。',contact:'kuaile666',status:'进行中'}
+      {id:'a1',title:'孔雀河日出人像约拍',org:'老李头的相机',orgRole:'photographer',location:'孔雀河（建设桥段）',date:'2026-11-02',time:'07:30',max:6,joined:3,desc:'拍孔雀河日出逆光人像，需要1-2名模特。提供相机（Canon R5）+ 反光板。拍完一起喝早茶交流。风格：人像/氛围感。',contact:'lilaotou123',status:'进行中'},
+      {id:'a2',title:'胡杨林古风人像采风',org:'梨城摄影工作室',orgRole:'team',location:'轮台胡杨林公园',date:'2026-11-05',time:'08:00',max:8,joined:5,desc:'工作室组织去胡杨林拍古风人像。提供：摄影师+化妆师+古风服装3套。招募模特2-3名，有经验优先。拼车前往。',contact:'licheng-studio',status:'进行中'},
+      {id:'a3',title:'手机摄影技巧交流活动',org:'孔雀河畔',orgRole:'photographer',location:'风帆广场茶楼',date:'2026-10-30',time:'16:00',max:12,joined:7,desc:'不用单反，手机也能拍好照片。分享构图、光线、后期技巧。不限年龄，欢迎退休朋友参加。带手机就行！',contact:'kqriver',status:'进行中'}
     ];
     localStorage.setItem('lc_activities',JSON.stringify(sampleActs));
   }
 })();
 
 // ===== STATE =====
-var currentTab='feed';
-var currentUser='我';
-var photoFileData=null;
+var currentTab='discover';
+var currentRoleFilter='all';
+var currentStyleFilter='all';
+var currentUser=null;
+var editData={selectedRole:'',styles:[],gear:[],modelTypes:[],services:[]};
 
 // ===== INIT =====
 function init(){
-  // Hide splash
   setTimeout(function(){document.getElementById('splash').classList.add('hide');},500);
-  renderFeed();
+  loadProfile();
+  renderDiscover();
   renderActivities();
   renderSpots();
-  renderProfile();
-  updateUserCount();
+}
+
+// ===== PROFILE =====
+function loadProfile(){
+  try{
+    var d=localStorage.getItem('lc_my_profile');
+    if(d) currentUser=JSON.parse(d);
+  }catch(e){}
+}
+
+function getProfile(){
+  return currentUser;
+}
+
+function saveProfileData(){
+  if(currentUser) localStorage.setItem('lc_my_profile',JSON.stringify(currentUser));
 }
 
 // ===== NAV =====
@@ -360,274 +404,357 @@ function switchTab(tab){
   currentTab=tab;
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
-  document.getElementById('pageFeed').classList.toggle('active',tab==='feed');
-  document.getElementById('pageActivity').classList.toggle('active',tab==='activity');
-  document.getElementById('pageSpots').classList.toggle('active',tab==='spots');
-  document.getElementById('pageProfile').classList.toggle('active',tab==='profile');
-  document.querySelectorAll('.nav-item')[tab==='feed'?0:tab==='activity'?1:tab==='spots'?2:3].classList.add('active');
-  if(tab==='feed') document.getElementById('fabBtn').style.display='flex';
-  else if(tab==='activity') document.getElementById('fabBtn').style.display='flex';
-  else document.getElementById('fabBtn').style.display='none';
+  var pages={discover:'pageDiscover',activity:'pageActivity',spots:'pageSpots',profile:'pageProfile'};
+  var navs={discover:0,activity:1,spots:2,profile:3};
+  document.getElementById(pages[tab]).classList.add('active');
+  document.querySelectorAll('.nav-item')[navs[tab]].classList.add('active');
+  if(tab==='profile') renderProfile();
+  if(tab==='discover') renderDiscover();
 }
 
-// ===== RENDER FEED =====
-function renderFeed(){
-  var photos=getPhotos();
-  var list=document.getElementById('feedList');
-  if(photos.length===0){
-    list.innerHTML='<div class="empty-state"><div class="icon">📸</div><p>还没有作品<br>点击下方 + 发布第一张照片！</p></div>';
+// ===== DISCOVER =====
+function filterRole(role){
+  currentRoleFilter=role;
+  document.querySelectorAll('#roleTabs .role-tab').forEach(function(t){t.classList.toggle('active',t.dataset.role===role);});
+  renderDiscover();
+}
+
+function filterStyle(style){
+  currentStyleFilter=style;
+  document.querySelectorAll('#styleFilter .filter-btn').forEach(function(b){b.classList.toggle('active',b.dataset.style===style);});
+  renderDiscover();
+}
+
+function renderDiscover(){
+  var users=getUsers();
+  var list=document.getElementById('discoverList');
+  var filtered=users.filter(function(u){
+    if(currentRoleFilter!=='all' && u.role!==currentRoleFilter) return false;
+    if(currentStyleFilter!=='all' && (!u.styles||u.styles.indexOf(currentStyleFilter)===-1)) return false;
+    return true;
+  });
+  if(filtered.length===0){
+    list.innerHTML='<div class="empty-state"><div class="icon">🔍</div><p>没有找到匹配的用户</p></div>';
     return;
   }
   var html='';
-  photos.forEach(function(p,i){
-    html+='<div class="post-card anim-in">'+
-      (p.image?'<img class="post-img" src="'+p.image+'" alt="摄影作品">':'<div class="post-img" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:#bbb;font-size:36px;">📷</div>')+
-      '<div class="post-body">'+
-        '<div class="post-user">'+
-          '<div class="avatar">'+p.avatar+'</div>'+
-          '<div><div class="uname">'+p.user+'</div><div class="uloc">📍 '+p.location+'</div></div>'+
+  filtered.forEach(function(u,i){
+    var badge=u.role==='photographer'?'📷 摄影师':u.role==='model'?'💃 模特':'🏢 团队工作室';
+    var badgeClass=u.role==='photographer'?'badge-photographer':u.role==='model'?'badge-model':'badge-team';
+    var isMe=currentUser&&currentUser.id===u.id;
+    var styleTags=(u.styles||[]).map(function(s){return '<span class="uc-tag">#'+s+'</span>';}).join('');
+    var extraInfo='';
+    if(u.role==='photographer'&&u.gear) extraInfo='📷 '+(u.gear||[]).join(' · ');
+    if(u.role==='model'&&u.modelTypes) extraInfo='💃 '+(u.modelTypes||[]).join(' · ');
+    if(u.role==='team'&&u.services) extraInfo='🏢 '+(u.services||[]).join(' · ');
+    
+    html+='<div class="card" onclick="showUserDetail(\''+u.id+'\')">'+
+      '<div class="user-card">'+
+        '<div class="uc-avatar" style="background:'+(u.color||'#2c3e50')+';">'+(u.avatar||u.name[0])+'</div>'+
+        '<div class="uc-info">'+
+          '<div class="uc-name">'+(isMe?'⭐ ':'')+u.name+' <span class="uc-badge '+badgeClass+'">'+badge+'</span></div>'+
+          '<div class="uc-meta">📍 '+u.area+'</div>'+
+          '<div class="uc-meta" style="font-size:11px;">'+extraInfo+'</div>'+
+          '<div class="uc-tags">'+styleTags+'</div>'+
         '</div>'+
-        '<div class="post-desc">'+p.desc+'</div>'+
-        '<div class="post-tags">'+p.tags.map(function(t){return '<span class="tag">#'+t+'</span>';}).join('')+'</div>'+
-        '<div class="post-actions">'+
-          '<div class="action'+(p.liked?' liked':'')+'" onclick="toggleLike('+i+')">'+(p.liked?'❤️':'🤍')+' <span class="num">'+p.likes+'</span></div>'+
-          '<div class="action">💬 <span class="num">'+p.comments+'</span></div>'+
-          '<div class="action" style="margin-left:auto;">🔗</div>'+
-        '</div>'+
-        '<div class="post-time">'+p.time+'</div>'+
       '</div></div>';
   });
   list.innerHTML=html;
 }
 
-function toggleLike(idx){
-  var photos=getPhotos();
-  photos[idx].liked=!photos[idx].liked;
-  photos[idx].likes+=photos[idx].liked?1:-1;
-  savePhotos(photos);
-  renderFeed();
-  renderProfile();
+// ===== USER DETAIL =====
+function showUserDetail(uid){
+  var users=getUsers();
+  var u=users.find(function(x){return x.id===uid;});
+  if(!u){showToast('用户不存在');return;}
+  var badge=u.role==='photographer'?'📷 摄影师':u.role==='model'?'💃 模特':'🏢 团队工作室';
+  var html='<div class="card">'+
+    '<div class="user-card">'+
+      '<div class="uc-avatar" style="width:60px;height:60px;font-size:26px;background:'+(u.color||'#2c3e50')+';">'+(u.avatar||u.name[0])+'</div>'+
+      '<div class="uc-info"><div class="uc-name" style="font-size:18px;">'+u.name+'</div>'+
+      '<div class="uc-meta" style="font-size:13px;">'+badge+' · 📍 '+u.area+'</div></div>'+
+    '</div>';
+  // Detail sections
+  html+='<div class="detail-section"><h3>🎨 擅长风格</h3><div class="tag-list">'+
+    (u.styles||[]).map(function(s){return '<span class="tag-item">#'+s+'</span>';}).join('')+'</div></div>';
+  if(u.role==='photographer'){
+    html+='<div class="detail-section"><h3>📷 设备</h3><div class="tag-list">'+
+      (u.gear||[]).map(function(g){return '<span class="tag-item">'+g+'</span>';}).join('')+'</div></div>'+
+      '<div class="detail-section"><h3>⏳ 从业经验</h3><div style="font-size:14px;color:#444;">'+u.exp+'</div></div>';
+  }
+  if(u.role==='model'){
+    html+='<div class="detail-section"><h3>💃 可接受拍摄类型</h3><div class="tag-list">'+
+      (u.modelTypes||[]).map(function(t){return '<span class="tag-item">'+t+'</span>';}).join('')+'</div></div>'+
+      '<div class="detail-section"><h3>📊 经验</h3><div style="font-size:14px;color:#444;">'+(u.modelExp||'')+'</div></div>';
+  }
+  if(u.role==='team'){
+    html+='<div class="detail-section"><h3>🏢 提供服务</h3><div class="tag-list">'+
+      (u.services||[]).map(function(s){return '<span class="tag-item">'+s+'</span>';}).join('')+'</div></div>';
+  }
+  html+='<div class="detail-section"><h3>📝 简介</h3><div style="font-size:13px;color:#555;line-height:1.8;">'+(u.bio||'暂无简介')+'</div></div>';
+  // Interest button
+  if(!currentUser||currentUser.id!==u.id){
+    html+='<div style="padding:6px 14px 14px;">'+
+      '<button class="btn-primary" onclick="expressInterest(\''+u.id+'\')">💌 想认识 · 联系TA</button></div>';
+  }
+  html+='</div>';
+  document.getElementById('userDetailContent').innerHTML=html;
+  document.getElementById('userDetailModal').classList.add('show');
 }
 
-// ===== RENDER ACTIVITIES =====
+function expressInterest(uid){
+  var users=getUsers();
+  var u=users.find(function(x){return x.id===uid;});
+  if(!u) return;
+  var contactInfo=u.contact?'微信号：'+u.contact:'（对方未留联系方式）';
+  showToast('✅ 已获取对方联系方式\n'+contactInfo);
+}
+
+// ===== ACTIVITIES =====
 function renderActivities(){
   var acts=getActivities();
   var list=document.getElementById('activityList');
   if(acts.length===0){
-    list.innerHTML='<div class="empty-state"><div class="icon">🎯</div><p>还没有采风活动<br>点击下方 + 发起一个活动！</p></div>';
+    list.innerHTML='<div class="empty-state"><div class="icon">🎯</div><p>还没有采风活动</p></div>';
     return;
   }
   var html='';
   acts.forEach(function(a,i){
-    var statusClass='';
-    var statusText=a.status||'进行中';
-    if(a.joined>=a.max){statusClass=' full';statusText='已满';}
-    html+='<div class="activity-card anim-in">'+
-      '<div class="ac-header"><div class="ac-title">'+a.title+'</div><div class="ac-status'+statusClass+'">'+statusText+'</div></div>'+
+    html+='<div class="activity-card">'+
+      '<div class="ac-header"><div class="ac-title">'+a.title+'</div><div class="ac-status">'+(a.status||'进行中')+'</div></div>'+
       '<div class="ac-body">'+
         '<div class="ac-meta">'+
           '<span class="ac-meta-item">📅 '+a.date+'</span>'+
           '<span class="ac-meta-item">⏰ '+a.time+'</span>'+
           '<span class="ac-meta-item">📍 '+a.location+'</span>'+
           '<span class="ac-meta-item">👥 '+a.joined+'/'+a.max+'人</span>'+
+          '<span class="ac-meta-item">'+(a.orgRole==='photographer'?'📷 摄影师发起':a.orgRole==='model'?'💃 模特发起':'🏢 团队发起')+'</span>'+
         '</div>'+
         '<div class="ac-desc">'+a.desc+'</div>'+
         '<div class="ac-org">'+
-          '<div class="avatar" style="width:28px;height:28px;font-size:12px;">'+(a.orgAvatar||a.org[0])+'</div>'+
-          '<div><div class="o-name">发起人：'+a.org+'</div></div>'+
-          '<button class="ac-btn'+(a.joined?' joined':'')+'" onclick="toggleJoin('+i+')">'+(a.joined?'✅ 已报名':'✋ 我要参加')+'</button>'+
+          '<div style="font-size:13px;flex:1;">发起人：<strong>'+a.org+'</strong></div>'+
+          '<button class="ac-btn'+(a.joined>=a.max?' joined':' primary')+'" onclick="joinActivity('+i+')">'+
+            (a.joined>=a.max?'👥 已满':'✋ 我要参加')+'</button>'+
         '</div>'+
       '</div></div>';
   });
   list.innerHTML=html;
 }
 
-function toggleJoin(idx){
+function joinActivity(idx){
   var acts=getActivities();
   if(acts[idx].joined>=acts[idx].max){showToast('名额已满');return;}
   acts[idx].joined++;
-  if(acts[idx].joined>=acts[idx].max) acts[idx].status='已满';
   saveActivities(acts);
   renderActivities();
   showToast('✅ 报名成功！');
 }
 
-// ===== RENDER SPOTS =====
+// ===== SPOTS =====
 function renderSpots(){
   var spots=[
-    {name:'孔雀河 · 建设桥段',type:'城市风光',desc:'孔雀河穿城而过，建设桥夜景灯光倒影是经典机位。清晨日出时分光线极佳。',count:'32张作品',icon:'🌉'},
-    {name:'天鹅河',type:'生态鸟类',desc:'每年10月-次年3月天鹅越冬，是拍天鹅的绝佳地点。晨雾中天鹅格外有诗意。',count:'28张作品',icon:'🦢'},
-    {name:'轮台胡杨林',type:'自然风光',desc:'世界最大胡杨林保护区，10月中下旬是黄金期。建议带长焦+超广角。距库尔勒约2小时车程。',count:'45张作品',icon:'🌳'},
-    {name:'博斯腾湖',type:'湖光水色',desc:'新疆最大淡水湖，日落时分的渔船和飞鸟是必拍题材。距库尔勒约1小时车程。',count:'36张作品',icon:'🌅'},
-    {name:'龙山公园',type:'城市全景',desc:'登上龙山可俯瞰库尔勒全景，是拍城市日落和夜景的好去处。',count:'18张作品',icon:'🏔️'},
-    {name:'铁门关',type:'历史人文',desc:'古代丝绸之路关隘，峡谷险峻，有历史沧桑感。适合人文和风光摄影。',count:'15张作品',icon:'🏛️'},
-    {name:'风帆广场',type:'城市人文',desc:'孔雀河畔市民活动中心，早晚有广场舞、太极拳，是扫街人文的好去处。',count:'22张作品',icon:'⛵'},
-    {name:'杜鹃河',type:'生态风光',desc:'杜鹃河湿地公园，候鸟栖息地，适合拍鸟和自然风光。',count:'12张作品',icon:'🌿'}
+    {name:'孔雀河 · 建设桥',type:'城市风光 / 夜景',icon:'🌉',desc:'穿城而过的孔雀河，建设桥夜景灯光倒影是经典机位。早晚光线极佳，适合人像和城市风光。',count:'32位摄友去过'},
+    {name:'天鹅河',type:'生态 / 鸟类',icon:'🦢',desc:'每年10月-次年3月天鹅在此越冬，晨雾中的天鹅格外有诗意。适合长焦拍摄，也是人像拍摄的好背景。',count:'28位摄友去过'},
+    {name:'轮台胡杨林',type:'自然风光',icon:'🌳',desc:'世界最大胡杨林保护区，10月中下旬是黄金期。建议带长焦+超广角。距库尔勒约2小时车程。',count:'45位摄友去过'},
+    {name:'博斯腾湖',type:'湖光水色',icon:'🌅',desc:'新疆最大淡水湖，日落时分的渔船和飞鸟是必拍题材。湖边沙滩适合人像创作。',count:'36位摄友去过'},
+    {name:'龙山公园',type:'城市全景',icon:'🏔️',desc:'登上龙山可俯瞰库尔勒全景，适合拍城市日落、夜景和星空。',count:'18位摄友去过'},
+    {name:'铁门关',type:'历史人文',icon:'🏛️',desc:'古丝路关隘，峡谷险峻有历史沧桑感，适合人文和古风人像。',count:'15位摄友去过'},
+    {name:'风帆广场',type:'城市人文',icon:'⛵',desc:'市民活动中心，早晚有广场舞、太极拳。适合人文扫街和纪实摄影。',count:'22位摄友去过'},
+    {name:'杜鹃河',type:'生态风光',icon:'🌿',desc:'湿地公园，候鸟栖息地。晨练人群和自然景观的结合，适合生态和人文摄影。',count:'12位摄友去过'}
   ];
   var html='';
   spots.forEach(function(s){
-    html+='<div class="spot-card anim-in">'+
-      '<div class="spot-img" style="display:flex;align-items:center;justify-content:center;font-size:36px;background:linear-gradient(135deg,#e8f0fe,#d4e4f7);">'+s.icon+'</div>'+
-      '<div class="spot-body">'+
-        '<div class="spot-name">'+s.name+'</div>'+
-        '<div class="spot-type">'+s.type+'</div>'+
-        '<div class="spot-desc">'+s.desc+'</div>'+
-        '<div class="spot-count">📷 '+s.count+'</div>'+
-      '</div></div>';
+    html+='<div class="spot-card"><div class="spot-icon">'+s.icon+'</div>'+
+      '<div class="spot-body"><div class="spot-name">'+s.name+'</div>'+
+      '<div class="spot-type">'+s.type+'</div>'+
+      '<div class="spot-desc">'+s.desc+'</div>'+
+      '<div class="spot-count">📷 '+s.count+'</div></div></div>';
   });
   document.getElementById('spotList').innerHTML=html;
 }
 
-// ===== PROFILE =====
+// ===== PROFILE PAGE =====
 function renderProfile(){
-  var photos=getPhotos();
-  var acts=getActivities();
-  var myPhotos=photos.filter(function(p){return p.user===currentUser;});
-  var myActs=acts.filter(function(a){return a.org===currentUser;});
-  var totalLikes=photos.reduce(function(s,p){return s+p.likes;},0);
-  document.getElementById('statPosts').textContent=myPhotos.length;
-  document.getElementById('statActs').textContent=myActs.length;
-  document.getElementById('statLikes').textContent=totalLikes;
-  
-  // My posts
-  var mph='';
-  if(myPhotos.length===0) mph='<div style="text-align:center;padding:10px;color:#ccc;font-size:13px;">还没有发布作品</div>';
-  else myPhotos.forEach(function(p){
-    mph+='<div class="my-post"><div class="mp-img" style="display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);">📷</div><div><div class="mp-title">'+p.location+' · '+(p.tags[0]||'')+'</div><div class="mp-date">'+p.time+' · ❤️ '+p.likes+'</div></div></div>';
-  });
-  document.getElementById('myPosts').innerHTML=mph;
-  
-  // My activities
-  var mah='';
-  if(myActs.length===0) mah='<div style="text-align:center;padding:10px;color:#ccc;font-size:13px;">还没有发起活动</div>';
-  else myActs.forEach(function(a){
-    mah+='<div class="my-post"><div style="font-size:24px;width:48px;text-align:center;">🎯</div><div><div class="mp-title">'+a.title+'</div><div class="mp-date">'+a.date+' · '+a.joined+'/'+a.max+'人</div></div></div>';
-  });
-  document.getElementById('myActivities').innerHTML=mah;
-}
-
-function updateUserCount(){
-  var photos=getPhotos();
-  var users=new Set(photos.map(function(p){return p.user;}));
-  document.getElementById('userCount').textContent=users.size;
-}
-
-// ===== PUBLISH =====
-function showPublishModal(){
-  if(currentTab==='activity'){
-    // Show activity modal
-    document.getElementById('activityModal').classList.add('show');
-  }else{
-    document.getElementById('publishModal').classList.add('show');
+  var u=getProfile();
+  var container=document.getElementById('profileContent');
+  if(!u){
+    container.innerHTML='<div style="text-align:center;padding:40px 20px;color:#bbb;">'+
+      '<div style="font-size:48px;margin-bottom:8px;">👤</div>'+
+      '<p style="font-size:14px;">请先完善个人信息</p>'+
+      '<button class="btn-primary" onclick="showProfileEdit()" style="max-width:200px;margin:16px auto 0;font-size:13px;padding:10px;">完善资料</button></div>';
+    return;
   }
-}
-
-function closeModal(id){
-  document.getElementById(id).classList.remove('show');
-}
-
-function onPhotoSelect(e){
-  var file=e.target.files[0];
-  if(!file) return;
-  document.getElementById('photoFileName').textContent='✅ '+file.name;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    photoFileData=ev.target.result;
-  };
-  reader.readAsDataURL(file);
-}
-
-function publishPost(){
-  var desc=document.getElementById('pubDesc').value.trim();
-  var loc=document.getElementById('pubLocation').value;
-  var tagsInput=document.getElementById('pubTags').value.trim();
-  if(!desc){showToast('请填写作品说明');return;}
-  var tags=tagsInput?tagsInput.split(/[,，]/).map(function(t){return t.trim();}).filter(function(t){return t;}):['风光'];
+  var badge=u.role==='photographer'?'📷 摄影师':u.role==='model'?'💃 模特':'🏢 团队工作室';
+  var badgeClass=u.role==='photographer'?'badge-photographer':u.role==='model'?'badge-model':'badge-team';
+  var styleTags=(u.styles||[]).map(function(s){return '<span class="tag-item">#'+s+'</span>';}).join('');
   
-  var photos=getPhotos();
-  var now=new Date();
-  photos.unshift({
-    id:'p'+Date.now(),
-    user:currentUser,
-    avatar:currentUser[0],
-    location:loc,
-    desc:desc,
-    tags:tags,
-    likes:0,
-    comments:0,
-    liked:false,
-    time:now.getFullYear()+'-'+(now.getMonth()+1).toString().padStart(2,'0')+'-'+now.getDate().toString().padStart(2,'0'),
-    image:photoFileData||''
+  var extraSection='';
+  if(u.role==='photographer'){
+    extraSection='<div class="info-grid"><div class="info-item"><div class="ii-label">从业经验</div><div class="ii-value">'+u.exp+'</div></div>'+
+      '<div class="info-item"><div class="ii-label">设备</div><div class="ii-value" style="font-size:12px;">'+(u.gear||[]).join('、')+'</div></div></div>';
+  }
+  if(u.role==='model'){
+    extraSection='<div class="info-grid"><div class="info-item"><div class="ii-label">接受类型</div><div class="ii-value">'+(u.modelTypes||[]).join('、')+'</div></div>'+
+      '<div class="info-item"><div class="ii-label">经验</div><div class="ii-value">'+(u.modelExp||'')+'</div></div></div>';
+  }
+  if(u.role==='team'){
+    extraSection='<div class="info-item" style="grid-column:1/3;"><div class="ii-label">服务项目</div><div class="ii-value" style="font-size:12px;">'+(u.services||[]).join('、')+'</div></div>';
+  }
+  
+  container.innerHTML='<div class="card">'+
+    '<div class="user-card">'+
+      '<div class="uc-avatar" style="width:60px;height:60px;font-size:26px;background:'+(u.color||'#2c3e50')+';">'+(u.avatar||u.name[0])+'</div>'+
+      '<div class="uc-info"><div class="uc-name" style="font-size:18px;">'+u.name+' <span class="uc-badge '+badgeClass+'">'+badge+'</span></div>'+
+      '<div class="uc-meta">📍 '+u.area+'</div></div>'+
+    '</div>'+
+    '<div style="padding:0 14px 14px;"><div class="tag-list">'+styleTags+'</div></div>'+
+    (extraSection?'<div style="padding:0 14px 14px;">'+extraSection+'</div>':'')+
+    (u.bio?'<div style="padding:0 14px 14px;font-size:13px;color:#555;border-top:1px solid #f0f0f0;padding-top:12px;">'+u.bio+'</div>':'')+
+    (u.contact?'<div style="padding:0 14px 14px;font-size:12px;color:#888;border-top:1px solid #f0f0f0;padding-top:10px;">📞 '+u.contact+'</div>':'')+
+    '</div>'+
+    '<div class="profile-edit-btn"><button onclick="showProfileEdit()">✏️ 编辑资料</button></div>';
+}
+
+// ===== PROFILE EDIT =====
+function showProfileEdit(){
+  var u=getProfile();
+  editData={selectedRole:u?u.role:'',styles:u?u.styles||[]:[],gear:u?u.gear||[]:[],modelTypes:u?u.modelTypes||[]:[],services:u?u.services||[]:[]};
+  document.getElementById('editName').value=u?u.name:'';
+  if(u&&u.area) document.getElementById('editArea').value=u.area;
+  if(u&&u.exp) document.getElementById('editExp').value=u.exp;
+  if(u&&u.modelExp) document.getElementById('editModelExp').value=u.modelExp;
+  document.getElementById('editBio').value=u?u.bio||'':'';
+  document.getElementById('editContact').value=u?u.contact||'':'';
+  // Reset chips
+  document.querySelectorAll('#roleChips .chip').forEach(function(c){c.classList.remove('selected');});
+  document.querySelectorAll('#styleChips .chip').forEach(function(c){c.classList.remove('selected');});
+  document.querySelectorAll('#gearChips .chip').forEach(function(c){c.classList.remove('selected');});
+  document.querySelectorAll('#modelTypeChips .chip').forEach(function(c){c.classList.remove('selected');});
+  document.querySelectorAll('#teamServiceChips .chip').forEach(function(c){c.classList.remove('selected');});
+  // Set selected
+  if(u&&u.role) selectChip('roleChips',u.role,true);
+  (u&&u.styles||[]).forEach(function(s){toggleChip('styleChips',s,true);});
+  (u&&u.gear||[]).forEach(function(g){toggleChip('gearChips',g,true);});
+  (u&&u.modelTypes||[]).forEach(function(t){toggleChip('modelTypeChips',t,true);});
+  (u&&u.services||[]).forEach(function(s){toggleChip('teamServiceChips',s,true);});
+  updateRoleFields();
+  document.getElementById('profileModal').classList.add('show');
+}
+
+function selectChip(groupId,val,silent){
+  document.querySelectorAll('#'+groupId+' .chip').forEach(function(c){
+    c.classList.toggle('selected',c.dataset.val===val);
+    if(c.dataset.val===val) editData.selectedRole=val;
   });
-  savePhotos(photos);
-  
-  // Reset
-  photoFileData=null;
-  document.getElementById('photoFileName').textContent='📷 点击选择照片';
-  document.getElementById('pubDesc').value='';
-  document.getElementById('pubTags').value='风光';
-  document.getElementById('photoInput').value='';
-  
-  closeModal('publishModal');
-  renderFeed();
-  renderProfile();
-  updateUserCount();
-  showToast('✅ 作品发布成功！');
+  if(!silent) updateRoleFields();
 }
 
-function publishActivity(){
-  var title=document.getElementById('actTitle').value.trim();
-  var loc=document.getElementById('actLocation').value;
-  var date=document.getElementById('actDate').value;
-  var time=document.getElementById('actTime').value;
-  var max=parseInt(document.getElementById('actMax').value)||10;
-  var desc=document.getElementById('actDesc').value.trim();
-  var contact=document.getElementById('actContact').value.trim();
+function toggleChip(groupId,val,silent){
+  var chip=document.querySelector('#'+groupId+' .chip[data-val="'+val+'"]');
+  if(!chip) return;
+  chip.classList.toggle('selected');
+  // Update editData based on group
+  var selected=[];
+  document.querySelectorAll('#'+groupId+' .chip.selected').forEach(function(c){selected.push(c.dataset.val);});
+  if(groupId==='styleChips') editData.styles=selected;
+  else if(groupId==='gearChips') editData.gear=selected;
+  else if(groupId==='modelTypeChips') editData.modelTypes=selected;
+  else if(groupId==='teamServiceChips') editData.services=selected;
+}
+
+function updateRoleFields(){
+  var role=editData.selectedRole;
+  document.getElementById('photographerFields').style.display=role==='photographer'?'block':'none';
+  document.getElementById('modelFields').style.display=role==='model'?'block':'none';
+  document.getElementById('teamFields').style.display=role==='team'?'block':'none';
+}
+
+function saveProfile(){
+  var name=document.getElementById('editName').value.trim();
+  if(!name){showToast('请输入昵称');return;}
+  if(!editData.selectedRole){showToast('请选择身份');return;}
+  if(editData.styles.length===0){showToast('请选择至少一个风格');return;}
   
-  if(!title){showToast('请填写活动名称');return;}
-  if(!date){showToast('请选择活动日期');return;}
-  if(!desc){showToast('请填写活动详情');return;}
+  var u=getProfile();
+  var isNew=!u;
+  if(isNew){
+    u={id:'u'+Date.now(),avatar:name[0],color:'#2c3e50'};
+  }
+  u.name=name;
+  u.role=editData.selectedRole;
+  u.area=document.getElementById('editArea').value;
+  u.styles=editData.styles;
+  u.bio=document.getElementById('editBio').value.trim();
+  u.contact=document.getElementById('editContact').value.trim();
   
+  if(u.role==='photographer'){
+    u.gear=editData.gear;
+    u.exp=document.getElementById('editExp').value;
+  }
+  if(u.role==='model'){
+    u.modelTypes=editData.modelTypes;
+    u.modelExp=document.getElementById('editModelExp').value;
+  }
+  if(u.role==='team'){
+    u.services=editData.services;
+  }
+  
+  currentUser=u;
+  saveProfileData();
+  
+  // If new user, add to users list
+  if(isNew){
+    var users=getUsers();
+    users.push(u);
+    localStorage.setItem('lc_users',JSON.stringify(users));
+  }else{
+    // Update in users list
+    var users=getUsers();
+    var idx=users.findIndex(function(x){return x.id===u.id;});
+    if(idx>-1){users[idx]=u;localStorage.setItem('lc_users',JSON.stringify(users));}
+  }
+  
+  closeModal('profileModal');
+  renderProfile();
+  renderDiscover();
+  showToast('✅ 资料已保存！');
+}
+
+// ===== PUBLISH ACTIVITY MODAL (inline) =====
+function showPubModal(){
+  if(!getProfile()){showToast('请先完善个人资料');return;}
+  // Simple prompt-based activity creation
+  var title=prompt('活动名称：\n例如「孔雀河人像约拍」');
+  if(!title) return;
+  var date=prompt('日期：\n例如 2026-11-05');
+  if(!date) return;
+  var loc=prompt('地点：\n例如 孔雀河、胡杨林');
+  if(!loc) return;
+  var desc=prompt('活动详情：\n描述拍摄计划、需要什么样的人、提供什么设备…');
+  if(!desc) return;
+  var max=prompt('人数上限：','10');
+  if(!max) return;
   var acts=getActivities();
+  var u=getProfile();
   acts.push({
-    id:'a'+Date.now(),
-    title:title,
-    org:currentUser,
-    orgAvatar:currentUser[0],
-    location:loc,
-    date:date,
-    time:time,
-    max:max,
-    joined:1,
-    desc:desc,
-    contact:contact,
-    status:'进行中'
+    id:'a'+Date.now(),title:title,org:u.name,orgRole:u.role,
+    location:loc,date:date,time:'视情况',max:parseInt(max)||10,
+    joined:1,desc:desc,contact:u.contact||'',status:'进行中'
   });
   saveActivities(acts);
-  
-  // Reset
-  document.getElementById('actTitle').value='';
-  document.getElementById('actDesc').value='';
-  document.getElementById('actContact').value='';
-  document.getElementById('actDate').value='';
-  
-  closeModal('activityModal');
   renderActivities();
-  renderProfile();
-  showToast('🎯 活动发布成功！');
+  showToast('✅ 活动已发布！');
 }
 
 // ===== STORAGE =====
-function getPhotos(){
-  try{var d=JSON.parse(localStorage.getItem('lc_photos'));return Array.isArray(d)?d:[];}catch(e){return [];}
+function getUsers(){
+  try{var d=JSON.parse(localStorage.getItem('lc_users'));return Array.isArray(d)?d:[];}catch(e){return [];}
 }
-function savePhotos(p){localStorage.setItem('lc_photos',JSON.stringify(p));}
 function getActivities(){
   try{var d=JSON.parse(localStorage.getItem('lc_activities'));return Array.isArray(d)?d:[];}catch(e){return [];}
 }
 function saveActivities(a){localStorage.setItem('lc_activities',JSON.stringify(a));}
-
-// ===== TOAST =====
+function closeModal(id){document.getElementById(id).classList.remove('show');}
 function showToast(msg){
   var t=document.getElementById('toast');
   t.textContent=msg;
