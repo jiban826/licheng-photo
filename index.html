@@ -252,45 +252,56 @@ function renderSpots(){
 }
 
 function renderProfile(){
-  $('profile').innerHTML='<div class="card"><div class="pad"><div style="text-align:center;padding:12px;"><div class="av" style="width:56px;height:56px;font-size:24px;background:#2c3e50;margin:0 auto 8px;">'+(my?my.name[0]:'?')+'</div><div style="font-size:16px;font-weight:700;">'+(my?my.name:T('profile'))+'</div></div>'+
-    '<button class="btn btn-b" onclick="editProfile()">✏️ '+T('edit')+'</button>'+
-    (my&&my.ws&&my.ws.length>0?'<div style="margin-top:12px;padding-top:12px;border-top:1px solid #eee;"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">📷 '+T('works')+'</div>'+my.ws.map(function(w){return '<div style="background:#f0f2f5;border-radius:8px;padding:8px;margin:4px 0;font-size:11px;">📷 '+w+'</div>';}).join('')+'</div>':'')+
-    '</div></div>';
+  var u=getMe();
+  var h='<div class="card"><div class="pad"><div style="text-align:center;padding:12px;"><div class="av" style="width:56px;height:56px;font-size:24px;background:#2c3e50;margin:0 auto 8px;">'+(u?u.n[0]:'?')+'</div><div style="font-size:16px;font-weight:700;">'+(u?u.n:T('profile'))+'</div>';
+  if(u&&u.r){
+    var bd=u.r==='p'?'📷 摄影师':u.r==='m'?'💃 模特':'🏢 团队';
+    h+='<div style="font-size:11px;color:#888;">'+bd+' · 📍 '+u.a+'</div>';
+    h+='<div class="tags" style="justify-content:center;margin-top:6px;">'+(u.s||[]).map(function(x){return '<span class="tag">#'+x+'</span>';}).join('')+'</div>';
+  }
+  h+='</div><button class="btn btn-b" onclick="showEditForm()">✏️ '+T('edit')+'</button>';
+  if(u&&u.ws&&u.ws.length>0){
+    h+='<div style="margin-top:10px;padding-top:10px;border-top:1px solid #eee;"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">📷 '+T('works')+'</div>'+
+      u.ws.map(function(w){return '<div style="background:#f0f2f5;border-radius:8px;padding:8px;margin:4px 0;font-size:11px;">📷 '+w+'</div>';}).join('')+'</div>';
+  }
+  h+='</div></div>';
+  $('profile').innerHTML=h;
 }
 
-function editProfile(){
-  var n=prompt(T('edit')+':','摄友');if(!n)return;
-  if(!my){my={id:'u'+Date.now(),c:'#2c3e50',ws:[]};USERS.push(my);}
-  my.name=n;
-  var w=prompt(T('upload')+':\n(输入作品名称，用逗号分隔)','');
-  if(w){my.ws=(my.ws||[]).concat(w.split(/[,，]/).map(function(x){return x.trim();}).filter(function(x){return x;}));}
-  renderProfile();toast('✅ '+T('save'));
+function getMe(){
+  try{var d=localStorage.getItem('lc_me');return d?JSON.parse(d):null;}catch(e){return null;}
 }
+function saveMe(d){localStorage.setItem('lc_me',JSON.stringify(d));}
 
-// ===== NAV =====
-function switchTab(t){
-  cur=t;
-  qa('.page').forEach(function(p){p.classList.toggle('act',p.id===t);});
-  qa('.tabs .t').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
-  qa('.bnav .n').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
-  if(t==='discover')render();
-  if(t==='activity')renderActs();
-  if(t==='spots')renderSpots();
-  if(t==='profile')renderProfile();
-}
-
-qa('.tabs .t').forEach(function(el){el.addEventListener('click',function(){switchTab(this.dataset.t);});});
-qa('.bnav .n').forEach(function(el){el.addEventListener('click',function(){switchTab(this.dataset.t);});});
-
-function toast(msg){
-  var t=$('toast');t.textContent=msg;t.style.display='block';
-  setTimeout(function(){t.style.display='none';},2000);
+function showEditForm(){
+  var u=getMe()||{};
+  var n=prompt(T('edit')+'(昵称):',u.n||'摄友');if(!n)return;
+  var r=prompt('身份 (p=摄影师, m=模特, t=团队):',u.r||'p');if(!['p','m','t'].includes(r))r='p';
+  var a=prompt('所在区域:',u.a||'库尔勒市区');
+  var s=prompt('风格 (用逗号分隔):',(u.s||[]).join('、'));
+  var w=prompt('作品名称 (用逗号分隔):',(u.ws||[]).join('、'));
+  var me={id:u.id||'u'+Date.now(),n:n,r:r,a:a||'库尔勒市区',
+    s:s?s.split(/[,，、]+/).filter(function(x){return x;}):[],
+    ws:w?w.split(/[,，、]+/).filter(function(x){return x;}):[],
+    c:u.c||'#2c3e50'};
+  saveMe(me);
+  // Update USERS
+  var idx=USERS.findIndex(function(x){return x.id===me.id;});
+  if(idx>-1)USERS[idx]=me;else USERS.push(me);
+  renderProfile();render();toast('✅ '+T('save'));
 }
 
 function renderAll(){render();renderActs();renderSpots();renderProfile();}
 
 // ===== START =====
 try{
+  // Load saved profile
+  var savedMe=getMe();
+  if(savedMe){
+    my=savedMe;
+    var idx=USERS.findIndex(function(x){return x.id===my.id;});
+    if(idx>-1)USERS[idx]=my;else USERS.push(my);
+  }
   applyT();
   renderAll();
   setTimeout(function(){var s=$('splash');if(s)s.classList.add('hide');},400);
