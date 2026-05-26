@@ -334,6 +334,21 @@ function saveEditForm(){
   if(idx>-1)USERS[idx]=me;else USERS.push(me);
   closeEdit();renderProfile();render();toast('✅ '+T('save'));
 }
+
+function switchTab(t){
+  cur=t;
+  qa('.page').forEach(function(p){p.classList.toggle('act',p.id===t);});
+  qa('.tabs .t').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
+  qa('.bnav .n').forEach(function(el){el.classList.toggle('act',el.dataset.t===t);});
+  if(t==='discover')render();
+  if(t==='activity')renderActs();
+  if(t==='spots')renderSpots();
+  if(t==='profile')renderProfile();
+}
+
+qa('.tabs .t').forEach(function(el){el.addEventListener('click',function(){switchTab(this.dataset.t);});});
+qa('.bnav .n').forEach(function(el){el.addEventListener('click',function(){switchTab(this.dataset.t);});});
+
 function renderAll(){render();renderActs();renderSpots();renderProfile();}
 
 // ===== START =====
